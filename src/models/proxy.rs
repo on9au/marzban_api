@@ -20,12 +20,36 @@ pub struct ProxyHost {
 
 #[derive(Serialize, Deserialize)]
 pub enum ProxyHostALPN {
-    // TODO!
+    #[serde(rename = "h2")]
+    H2,
+    #[serde(rename = "http/1.1")]
+    Http11,
+    #[serde(rename = "h2,http/1.1")]
+    H2andHttp11,
 }
 
 #[derive(Serialize, Deserialize)]
 pub enum ProxyHostFingerprint {
-    // TODO!
+    #[serde(rename = "chrome")]
+    Chrome,
+    #[serde(rename = "firefox")]
+    Firefox,
+    #[serde(rename = "safari")]
+    Safari,
+    #[serde(rename = "ios")]
+    Ios,
+    #[serde(rename = "android")]
+    Android,
+    #[serde(rename = "edge")]
+    Edge,
+    #[serde(rename = "360")]
+    Fingerprint360,
+    #[serde(rename = "qq")]
+    Qq,
+    #[serde(rename = "random")]
+    Random,
+    #[serde(rename = "randomized")]
+    Randomized,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -55,7 +79,9 @@ pub enum ProxyInboundPort {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct ProxySettings {}
+pub struct ProxySettings {
+    id: Option<String>,
+}
 
 #[derive(Serialize, Deserialize)]
 pub enum ProxyTypes {
