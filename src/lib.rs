@@ -1,3 +1,6 @@
-mod models;
+#![allow(dead_code)]
 
-pub use models::*;
+mod api;
+mod client;
+mod error;
+mod models;
