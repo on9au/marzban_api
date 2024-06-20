@@ -6,7 +6,7 @@ pub enum ApiError {
     NetworkError(#[from] reqwest::Error),
 
     #[error("API error: {0}")]
-    ApiError(String),
+    ApiResponseError(String),
 
     #[error("Unexpected API response")]
     UnexpectedResponse,

@@ -23,7 +23,7 @@ impl MarzbanAPIClient {
                 .map_err(ApiError::NetworkError),
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
-                Err(ApiError::ApiError(format!(
+                Err(ApiError::ApiResponseError(format!(
                     "Validation Error: {:?}",
                     error_response
                 )))
