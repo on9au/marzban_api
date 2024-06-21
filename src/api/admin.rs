@@ -185,20 +185,20 @@ impl MarzbanAPIClient {
 
     pub async fn get_admins(
         &self,
-        offset: Option<i32>,
-        limit: Option<i32>,
-        username: Option<String>,
+        offset: Option<&i32>,
+        limit: Option<&i32>,
+        username: Option<&str>,
     ) -> Result<Vec<Admin>, ApiError> {
         let url = format!("{}/api/admin/", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = offset {
-            params.push(value.to_string())
+            params.push(("offset", value.to_string()))
         }
         if let Some(value) = limit {
-            params.push(value.to_string())
+            params.push(("limit", value.to_string()))
         }
         if let Some(value) = username {
-            params.push(value)
+            params.push(("username", value.to_string()))
         }
 
         let response = self

@@ -19,10 +19,10 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/user_template", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = offset {
-            params.push(value)
+            params.push(("offset", value))
         }
         if let Some(value) = limit {
-            params.push(value)
+            params.push(("limit", value))
         }
 
         let response = self

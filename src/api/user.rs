@@ -203,7 +203,6 @@ impl MarzbanAPIClient {
         query_params: &GetUsersQueryParams,
     ) -> Result<UsersResponse, ApiError> {
         let url = format!("{}/api/users", self.base_url);
-
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .query(&query_params)
@@ -229,7 +228,6 @@ impl MarzbanAPIClient {
     // Reset all users data usage
     pub async fn reset_all_users_data_usage(&self) -> Result<String, ApiError> {
         let url = format!("{}/api/users/reset", self.base_url);
-
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .send()
@@ -254,10 +252,10 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/user/{}/usage", self.base_url, username);
         let mut params = Vec::new();
         if let Some(value) = start {
-            params.push(value.to_string())
+            params.push(("start", value.to_string()))
         }
         if let Some(value) = end {
-            params.push(value.to_string())
+            params.push(("end", value.to_string()))
         }
 
         let response = self
@@ -328,10 +326,10 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/users/expired", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = expired_before {
-            params.push(value)
+            params.push(("expired_before", value))
         }
         if let Some(value) = expired_after {
-            params.push(value)
+            params.push(("expired_after", value))
         }
 
         let response = self
@@ -365,10 +363,10 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/users/expired", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = expired_before {
-            params.push(value)
+            params.push(("expired_before", value))
         }
         if let Some(value) = expired_after {
-            params.push(value)
+            params.push(("expired_after", value))
         }
 
         let response = self

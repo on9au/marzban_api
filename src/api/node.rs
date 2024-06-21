@@ -198,10 +198,10 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/nodes/usage", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = start {
-            params.push(value)
+            params.push(("start", value))
         }
         if let Some(value) = end {
-            params.push(value)
+            params.push(("end", value))
         }
 
         let response = self

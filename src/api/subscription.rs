@@ -59,16 +59,16 @@ impl MarzbanAPIClient {
     pub async fn user_get_usage(
         &self,
         user_token: &str,
-        start: Option<String>,
-        end: Option<String>,
+        start: Option<&str>,
+        end: Option<&str>,
     ) -> Result<UserUsagesResponse, ApiError> {
         let url = format!("{}/sub/{}/usage", self.base_url, user_token);
         let mut params = Vec::new();
         if let Some(value) = start {
-            params.push(value)
+            params.push(("start", value))
         }
         if let Some(value) = end {
-            params.push(value)
+            params.push(("end", value))
         }
 
         let response = self
