@@ -59,8 +59,21 @@ impl MarzbanAPIClient {
     }
 
     // Returns user usage details
-    pub async fn user_get_usage(&self, user_token: String) -> Result<UserUsagesResponse, ApiError> {
+    pub async fn user_get_usage(
+        &self,
+        user_token: String,
+        start: Option<String>,
+        end: Option<String>,
+    ) -> Result<UserUsagesResponse, ApiError> {
         let url = format!("{}/sub/{}/usage", self.base_url, user_token);
+        let mut params = Vec::new();
+        if let Some(value) = start {
+            params.push(value)
+        }
+        if let Some(value) = end {
+            params.push(value)
+        }
+
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .send()
