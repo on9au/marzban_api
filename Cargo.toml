@@ -7,7 +7,7 @@ description = "A simple async client which abstracts/simplifies the interactions
 repository = "https://github.com/nulluser0/marzban_api"
 license = "MIT"
 keywords = ["marzban", "xtls", "api", "xray", "client"]
-categories = ["api-bindings", "asynchronous", "network-programming", "web-programming", "utilities",]
+categories = ["api-bindings", "asynchronous", "network-programming", "web-programming",]
 readme = "README.md"
 
 [dependencies]
