@@ -19,7 +19,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/admin/token", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
-            .form(&auth)
+            .json(&auth)
             .send()
             .await?;
 
@@ -77,7 +77,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/admin", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
-            .form(&body)
+            .json(&body)
             .send()
             .await?;
 
@@ -118,7 +118,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/admin/{}", self.base_url, admin_username);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
-            .form(&body)
+            .json(&body)
             .send()
             .await?;
 

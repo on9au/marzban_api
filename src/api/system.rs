@@ -93,7 +93,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/hosts", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
-            .form(&body)
+            .json(&body)
             .send()
             .await?;
 

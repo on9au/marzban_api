@@ -81,7 +81,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/core/config", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
-            .form(config_as_json)
+            .json(config_as_json)
             .send()
             .await?;
 
