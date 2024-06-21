@@ -1,5 +1,8 @@
 # marzban_api
 A simple async client which simplifies the interactions with the [Marzban](https://github.com/Gozargah/Marzban) panel API.
+>[!IMPORTANT]
+> Testing to be done!
+
 
 Updated for Marzban v0.4.9
 ## Using
