@@ -11,8 +11,6 @@ use crate::{
     },
 };
 
-use super::user;
-
 impl MarzbanAPIClient {
     pub async fn admin_token(
         &self,
