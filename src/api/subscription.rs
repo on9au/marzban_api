@@ -73,6 +73,7 @@ impl MarzbanAPIClient {
 
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .query(&params)
             .send()
             .await?;
 
