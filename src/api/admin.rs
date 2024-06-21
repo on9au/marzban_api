@@ -77,6 +77,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/admin", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
+            .form(&body)
             .send()
             .await?;
 
