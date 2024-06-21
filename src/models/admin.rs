@@ -2,25 +2,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Admin {
-    username: String,
-    is_sudo: bool,
-    telegram_id: Option<u32>,
-    discord_webhook: Option<String>,
+    pub username: String,
+    pub is_sudo: bool,
+    pub telegram_id: Option<u32>,
+    pub discord_webhook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminCreate {
-    username: String,
-    is_sudo: bool,
-    telegram_id: Option<u32>,
-    discord_webhook: Option<String>,
-    password: String,
+    pub username: String,
+    pub is_sudo: bool,
+    pub telegram_id: Option<u32>,
+    pub discord_webhook: Option<String>,
+    pub password: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminModify {
-    password: Option<String>,
-    is_sudo: bool,
-    telegram_id: Option<u32>,
-    discord_webhook: Option<String>,
+    pub password: Option<String>,
+    pub is_sudo: bool,
+    pub telegram_id: Option<u32>,
+    pub discord_webhook: Option<String>,
 }

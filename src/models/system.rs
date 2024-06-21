@@ -2,22 +2,22 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct CoreStats {
-    version: String,
-    started: bool,
-    logs_websocket: String,
+    pub version: String,
+    pub started: bool,
+    pub logs_websocket: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct SystemStats {
-    version: String,
-    mem_total: u32,
-    mem_used: u32,
-    cpu_cores: u32,
-    cpu_usage: f32,
-    total_user: u32,
-    users_active: u32,
-    incoming_bandwidth: u32,
-    outgoing_bandwidth: u32,
-    incoming_bandwidth_speed: u32,
-    outgoing_bandwidth_speed: u32,
+    pub version: String,
+    pub mem_total: u32,
+    pub mem_used: u32,
+    pub cpu_cores: u32,
+    pub cpu_usage: f32,
+    pub total_user: u32,
+    pub users_active: u32,
+    pub incoming_bandwidth: u32,
+    pub outgoing_bandwidth: u32,
+    pub incoming_bandwidth_speed: u32,
+    pub outgoing_bandwidth_speed: u32,
 }

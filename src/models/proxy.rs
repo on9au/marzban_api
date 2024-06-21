@@ -4,18 +4,18 @@ use crate::models::base::default_proxy_host_security;
 
 #[derive(Serialize, Deserialize)]
 pub struct ProxyHost {
-    remark: String,
-    address: String,
-    port: Option<u32>,
-    sni: Option<String>,
-    host: Option<String>,
-    path: Option<String>,
+    pub remark: String,
+    pub address: String,
+    pub port: Option<u32>,
+    pub sni: Option<String>,
+    pub host: Option<String>,
+    pub path: Option<String>,
     #[serde(default = "default_proxy_host_security")]
-    security: ProxyHostSecurity,
-    alpn: Option<ProxyHostALPN>,
-    fingerprint: Option<ProxyHostFingerprint>,
-    allow_insecure: Option<bool>,
-    is_disabled: Option<bool>,
+    pub security: ProxyHostSecurity,
+    pub alpn: Option<ProxyHostALPN>,
+    pub fingerprint: Option<ProxyHostFingerprint>,
+    pub allow_insecure: Option<bool>,
+    pub is_disabled: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -64,11 +64,11 @@ pub enum ProxyHostSecurity {
 
 #[derive(Serialize, Deserialize)]
 pub struct ProxyInbound {
-    tag: String,
-    protocol: ProxyTypes,
-    network: String,
-    tls: String,
-    port: ProxyInboundPort,
+    pub tag: String,
+    pub protocol: ProxyTypes,
+    pub network: String,
+    pub tls: String,
+    pub port: ProxyInboundPort,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -80,7 +80,7 @@ pub enum ProxyInboundPort {
 
 #[derive(Serialize, Deserialize)]
 pub struct ProxySettings {
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]

@@ -8,51 +8,51 @@ use crate::models::base::{
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct NodeCreate {
-    name: String,
-    address: String,
+    pub name: String,
+    pub address: String,
     #[serde(default = "default_port")]
-    port: u32, // default: 62050
+    pub port: u32, // default: 62050
     #[serde(default = "default_api_port")]
-    api_port: u32, // default: 62051
+    pub api_port: u32, // default: 62051
     #[serde(default = "default_usage_coefficient")]
     #[validate(range(min = 0.0))]
-    usage_coefficient: f32, // exclusiveMinimum: 0, default: 1
+    pub usage_coefficient: f32, // exclusiveMinimum: 0, default: 1
     #[serde(default = "default_true")]
-    add_as_new_host: bool, // default: true
+    pub add_as_new_host: bool, // default: true
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct NodeModify {
-    name: Option<String>,
-    address: Option<String>,
-    port: Option<u32>,
-    api_port: Option<u32>,
-    usage_coefficient: Option<f32>,
-    status: Option<NodeStatus>,
+    pub name: Option<String>,
+    pub address: Option<String>,
+    pub port: Option<u32>,
+    pub api_port: Option<u32>,
+    pub usage_coefficient: Option<f32>,
+    pub status: Option<NodeStatus>,
 }
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct NodeResponse {
-    name: String,
-    address: String,
+    pub name: String,
+    pub address: String,
     #[serde(default = "default_port")]
-    port: u32,
+    pub port: u32,
     #[serde(default = "default_api_port")]
-    api_port: u32,
+    pub api_port: u32,
     #[serde(default = "default_usage_coefficient")]
     #[validate(range(min = 0.0))]
-    usage_coefficient: f32,
-    id: u32,
-    xray_version: String,
-    status: NodeStatus,
-    message: Option<String>,
+    pub usage_coefficient: f32,
+    pub id: u32,
+    pub xray_version: String,
+    pub status: NodeStatus,
+    pub message: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct NodeSettings {
     #[serde(default = "default_min_node_version")]
-    min_node_version: String,
-    certificate: String,
+    pub min_node_version: String,
+    pub certificate: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -69,14 +69,14 @@ pub enum NodeStatus {
 
 #[derive(Serialize, Deserialize)]
 pub struct NodeUsageResponse {
-    node_id: Option<u32>,
-    node_name: String,
-    uplink: u32,
-    downlink: u32,
+    pub node_id: Option<u32>,
+    pub node_name: String,
+    pub uplink: u32,
+    pub downlink: u32,
 }
 
 // Note 'Nodes' (S plural) in NodesUsageResponse.
 #[derive(Serialize, Deserialize)]
 pub struct NodesUsageResponse {
-    usages: Vec<NodeUsageResponse>,
+    pub usages: Vec<NodeUsageResponse>,
 }
