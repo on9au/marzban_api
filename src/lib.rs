@@ -1,6 +1,7 @@
-#![allow(dead_code)]
+#![forbid(unsafe_code)]
+#![deny(unreachable_pub)]
 
-mod api;
-mod client;
-mod error;
-mod models;
+pub mod api;
+pub mod client;
+pub mod error;
+pub mod models;
