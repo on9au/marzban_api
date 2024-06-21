@@ -11,7 +11,7 @@ use crate::{
 
 impl MarzbanAPIClient {
     // Returns the website. If you are looking for subscription format, please instead use user_subscription_with_client_type().
-    pub async fn user_subscription(&self, user_token: String) -> Result<String, ApiError> {
+    pub async fn user_subscription(&self, user_token: &str) -> Result<String, ApiError> {
         let url = format!("{}/sub/{}", self.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
@@ -32,10 +32,7 @@ impl MarzbanAPIClient {
     }
 
     // Returns information about the user
-    pub async fn user_subscription_info(
-        &self,
-        user_token: String,
-    ) -> Result<UserResponse, ApiError> {
+    pub async fn user_subscription_info(&self, user_token: &str) -> Result<UserResponse, ApiError> {
         let url = format!("{}/sub/{}/info", self.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
@@ -61,7 +58,7 @@ impl MarzbanAPIClient {
     // Returns user usage details
     pub async fn user_get_usage(
         &self,
-        user_token: String,
+        user_token: &str,
         start: Option<String>,
         end: Option<String>,
     ) -> Result<UserUsagesResponse, ApiError> {
@@ -98,8 +95,8 @@ impl MarzbanAPIClient {
     // Returns the actual subscription format
     pub async fn user_subscription_with_client_type(
         &self,
-        user_token: String,
-        client_type: ClientTypes,
+        user_token: &str,
+        client_type: &ClientTypes,
     ) -> Result<String, ApiError> {
         let url = format!("{}/sub/{}/{}", self.base_url, user_token, client_type);
         let response = self

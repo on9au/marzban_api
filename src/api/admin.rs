@@ -14,7 +14,7 @@ use crate::{
 impl MarzbanAPIClient {
     pub async fn admin_token(
         &self,
-        auth: BodyAdminTokenApiAdminTokenPost,
+        auth: &BodyAdminTokenApiAdminTokenPost,
     ) -> Result<Token, ApiError> {
         let url = format!("{}/api/admin/token", self.base_url);
         let response = self
@@ -42,7 +42,7 @@ impl MarzbanAPIClient {
     // This method takes in a BodyAdminTokenApiAdminTokenPost, and if auth is successful, makes the returned token into the MarzbanAPIClient struct.
     pub async fn authenticate(
         &self,
-        auth: BodyAdminTokenApiAdminTokenPost,
+        auth: &BodyAdminTokenApiAdminTokenPost,
     ) -> Result<(), ApiError> {
         let token = self.admin_token(auth).await?;
         let mut token_lock = self.token.lock().unwrap();
@@ -73,7 +73,7 @@ impl MarzbanAPIClient {
         }
     }
 
-    pub async fn create_admin(&self, body: AdminCreate) -> Result<Admin, ApiError> {
+    pub async fn create_admin(&self, body: &AdminCreate) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
@@ -113,7 +113,7 @@ impl MarzbanAPIClient {
     pub async fn modify_admin(
         &self,
         admin_username: &str,
-        body: AdminModify,
+        body: &AdminModify,
     ) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin/{}", self.base_url, admin_username);
         let response = self
@@ -187,7 +187,7 @@ impl MarzbanAPIClient {
         &self,
         offset: Option<i32>,
         limit: Option<i32>,
-        username: Option<&str>,
+        username: Option<String>,
     ) -> Result<Vec<Admin>, ApiError> {
         let url = format!("{}/api/admin/", self.base_url);
         let mut params = Vec::new();
@@ -198,7 +198,7 @@ impl MarzbanAPIClient {
             params.push(value.to_string())
         }
         if let Some(value) = username {
-            params.push(value.to_string())
+            params.push(value)
         }
 
         let response = self
