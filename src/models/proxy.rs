@@ -80,9 +80,13 @@ pub enum ProxyInboundPort {
 
 #[derive(Serialize, Deserialize)]
 pub struct ProxySettings {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flow: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub method: Option<String>,
 }
 
