@@ -4,7 +4,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 use crate::models::base::{
-    default_data_limit_reset_strategy, default_empty_string, parse_some_datetime,
+    default_data_limit_reset_strategy, default_empty_string, parse_datetime, parse_some_datetime,
 };
 
 use super::proxy::ProxySettings;
@@ -68,15 +68,19 @@ pub struct UserResponse {
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: HashMap<String, Vec<String>>,
     pub note: Option<String>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub sub_updated_at: Option<DateTime<Utc>>,
     pub sub_last_user_agent: Option<String>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub online_at: Option<DateTime<Utc>>,
     pub on_hold_expire_duration: Option<u32>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
     pub username: String,
     pub status: UserStatus,
     pub used_traffic: u32,
     pub lifetime_used_traffic: u32, // default: 0
+    #[serde(deserialize_with = "parse_datetime")]
     pub created_at: DateTime<Utc>,
     pub links: Vec<String>,
     #[serde(default = "default_empty_string")]
