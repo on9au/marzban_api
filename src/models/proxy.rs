@@ -81,6 +81,9 @@ pub enum ProxyInboundPort {
 #[derive(Serialize, Deserialize)]
 pub struct ProxySettings {
     pub id: Option<String>,
+    pub flow: Option<String>,
+    pub password: Option<String>,
+    pub method: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]

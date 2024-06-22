@@ -59,7 +59,7 @@ pub struct UserModify {
 pub struct UserResponse {
     pub proxies: HashMap<String, ProxySettings>,
     pub expire: Option<u32>,
-    pub data_limit: u32, // min: 0, can be 0 or greater
+    pub data_limit: Option<u32>, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: HashMap<String, Vec<String>>,
     pub note: Option<String>,
