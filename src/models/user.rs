@@ -3,7 +3,9 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-use crate::models::base::{default_data_limit_reset_strategy, default_empty_string};
+use crate::models::base::{
+    default_data_limit_reset_strategy, default_empty_string, parse_some_datetime,
+};
 
 use super::proxy::ProxySettings;
 
@@ -47,10 +49,13 @@ pub struct UserModify {
     pub data_limit_reset_strategy: UserDataLimitResetStrategy,
     pub inbounds: HashMap<String, Vec<String>>,
     pub note: Option<String>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub sub_updated_at: Option<DateTime<Utc>>,
     pub sub_last_user_agent: Option<String>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub online_at: Option<DateTime<Utc>>,
     pub on_hold_expire_duration: Option<u32>,
+    #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
     pub status: UserStatusModify,
 }
