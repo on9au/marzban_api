@@ -58,14 +58,18 @@ pub(crate) fn parse_some_datetime<'de, D>(
 where
     D: Deserializer<'de>,
 {
-    let s: &str = Deserialize::deserialize(deserializer)?;
-    if s.is_empty() {
-        return Ok(None);
+    let opt: Option<&str> = Deserialize::deserialize(deserializer)?;
+    if let Some(s) = opt {
+        if s.is_empty() {
+            return Ok(None);
+        }
+        let parse_from_str = NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%H:%M:%S%.f");
+        let naive_datetime = parse_from_str.map_err(serde::de::Error::custom)?;
+        Ok(Some(DateTime::<Utc>::from_naive_utc_and_offset(
+            naive_datetime,
+            Utc,
+        )))
+    } else {
+        Ok(None)
     }
-    let parse_from_str = NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%H:%M:%S%.f");
-    let naive_datetime = parse_from_str.map_err(serde::de::Error::custom)?;
-    Ok(Some(DateTime::<Utc>::from_naive_utc_and_offset(
-        naive_datetime,
-        Utc,
-    )))
 }
