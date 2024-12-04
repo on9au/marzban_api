@@ -1,2 +1,5 @@
 /target
 /.VSCodeCounter
+
+# This is a lib crate, and lib crates should not have a Cargo.lock file
+Cargo.lock
