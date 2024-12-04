@@ -4,7 +4,7 @@ A simple async rust client which simplifies the interactions with the [Marzban](
 
 [![Crates.io](https://img.shields.io/crates/v/marzban_api)](https://crates.io/crates/marzban_api)
 [![Docs.rs](https://docs.rs/marzban_api/badge.svg)](https://docs.rs/marzban_api)
-[![License](https://img.shields.io/crates/l/marzban_api)](LICENSE)
+[![License](https://img.shields.io/crates/l/marzban_api)](./LICENSE)
 
 Updated for Marzban v0.7.0
 
