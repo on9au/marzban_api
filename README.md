@@ -1,23 +1,30 @@
 # marzban_api
+
 A simple async client which simplifies the interactions with the [Marzban](https://github.com/Gozargah/Marzban) panel API.
 >[!IMPORTANT]
 > Testing to be done!
 
-
 Updated for Marzban v0.4.9
+
 ## Using
+
 Either add it via Cargo:
+
 ```sh
-$ cargo add marzban_api
+cargo add marzban_api
 ```
+
 or via Cargo.toml:
+
 ```toml
 [dependencies]
 marzban_api = "0.1.0"
 ```
 
 ## Examples
+
 Simple example of using marzban_api:
+
 ```rust
 use marzban_api::client::MarzbanAPIClient;
 use marzban_api::models::auth::BodyAdminTokenApiAdminTokenPost;
@@ -54,18 +61,23 @@ async fn main() {
 ```
 
 ## Features
+
 - Async API Client from Reqwest
 - Error handling
 - Full support for all Marzban API endpoints
 
 ## Contributing
+
 Contributions are welcome. Please fork the repository and submit a pull request for review.
 
 ## License
+
 This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more details.
 
 ## Acknowledgements
+
 - [Marzban](https://github.com/Gozargah/Marzban) for providing the API.
 
 ## Additional Information
+
 For details on the Marzban API and schema, please refer to the [Marzban API Documentation](https://github.com/Gozargah/Marzban)
