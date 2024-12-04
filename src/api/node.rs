@@ -15,6 +15,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node/settings", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -35,6 +36,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
+            .await
             .json(body)
             .send()
             .await?;
@@ -63,6 +65,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node/{}", self.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -95,6 +98,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node/{}", self.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .await
             .json(body)
             .send()
             .await?;
@@ -124,6 +128,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node/{}", self.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .await
             .send()
             .await?;
 
@@ -149,6 +154,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/nodes", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -169,6 +175,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/node/{}/reconnect", self.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
+            .await
             .send()
             .await?;
 
@@ -206,6 +213,7 @@ impl MarzbanAPIClient {
 
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .await
             .query(&params)
             .send()
             .await?;

@@ -7,6 +7,7 @@ impl MarzbanAPIClient {
     pub async fn base_url(&self) -> Result<String, ApiError> {
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &self.base_url)
+            .await
             .send()
             .await?;
 

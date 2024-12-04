@@ -15,4 +15,5 @@ chrono = { version = "0.4.38", features = ["serde"] }
 reqwest = { version = "0.12.9", features = ["json"] }
 serde = { version = "1.0.215", features = ["serde_derive"] }
 thiserror = "2.0.4"
+tokio = { version = "1.42.0", features = ["full"] }
 validator = { version = "0.19.0", features = ["derive"] }

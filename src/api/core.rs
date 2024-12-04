@@ -12,6 +12,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/core", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -36,6 +37,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/core", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
+            .await
             .send()
             .await?;
 
@@ -57,6 +59,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/core/config", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -81,6 +84,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/api/core/config", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .await
             .json(config_as_json)
             .send()
             .await?;

@@ -15,6 +15,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/sub/{}", self.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -36,6 +37,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/sub/{}/info", self.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 
@@ -73,6 +75,7 @@ impl MarzbanAPIClient {
 
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .query(&params)
             .send()
             .await?;
@@ -102,6 +105,7 @@ impl MarzbanAPIClient {
         let url = format!("{}/sub/{}/{}", self.base_url, user_token, client_type);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
+            .await
             .send()
             .await?;
 

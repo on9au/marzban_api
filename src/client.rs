@@ -1,11 +1,12 @@
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
 use reqwest::Client;
+use tokio::sync::RwLock;
 
 pub struct MarzbanAPIClient {
     pub base_url: String,
     pub client: Client,
-    pub token: Arc<Mutex<Option<String>>>,
+    pub token: Arc<RwLock<Option<String>>>,
 }
 
 impl MarzbanAPIClient {
@@ -13,7 +14,7 @@ impl MarzbanAPIClient {
         MarzbanAPIClient {
             base_url: base_url.to_owned(),
             client: Client::new(),
-            token: Arc::new(Mutex::new(None)),
+            token: Arc::new(RwLock::new(None)),
         }
     }
 
@@ -21,18 +22,18 @@ impl MarzbanAPIClient {
         MarzbanAPIClient {
             base_url: base_url.to_owned(),
             client: Client::new(),
-            token: Arc::new(Mutex::new(Some(token.to_owned()))),
+            token: Arc::new(RwLock::new(Some(token.to_owned()))),
         }
     }
 
     // Helper method to create a request with authorization header if token is present
-    pub(crate) fn prepare_authorized_request(
+    pub(crate) async fn prepare_authorized_request(
         &self,
         method: reqwest::Method,
         url: &str,
     ) -> reqwest::RequestBuilder {
         let mut request_builder = self.client.request(method, url);
-        if let Some(token) = self.token.lock().unwrap().clone() {
+        if let Some(token) = self.token.read().await.as_ref() {
             request_builder = request_builder.bearer_auth(token);
         }
         request_builder
