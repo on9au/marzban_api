@@ -7,11 +7,11 @@ pub(crate) fn default_usage_coefficient() -> f32 {
     1.0
 }
 
-pub(crate) fn default_port() -> u32 {
+pub(crate) fn default_port() -> u16 {
     62050
 }
 
-pub(crate) fn default_api_port() -> u32 {
+pub(crate) fn default_api_port() -> u16 {
     62051
 }
 

@@ -1,3 +1,5 @@
+//! # User Template API Category
+
 use reqwest::StatusCode;
 
 use crate::{
@@ -10,7 +12,14 @@ use crate::{
 };
 
 impl MarzbanAPIClient {
-    // Get user templates
+    /// `GET /api/user_template`
+    ///
+    /// Get a list of User Templates with optional pagination
+    ///
+    /// # Parameters
+    ///
+    /// - `offset` - Optional offset for pagination
+    /// - `limit` - Optional limit for pagination
     pub async fn get_user_templates(
         &self,
         offset: Option<i32>,
@@ -48,7 +57,14 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Add a user template
+    /// `POST /api/user_template`
+    ///
+    /// Add a new user template
+    ///
+    /// - **name** can be up to 64 characters
+    /// - **data_limit** must be in bytes and larger or equal to 0
+    /// - **expire_duration** must be in seconds and larger or equat to 0
+    /// - **inbounds** dictionary of protocol:inbound_tags, empty means all inbounds
     pub async fn add_user_template(
         &self,
         body: &UserTemplateCreate,
@@ -83,7 +99,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Get user template with ID
+    /// `GET /api/user_template/{id}`
+    ///
+    /// Get User Template information with id
     pub async fn get_user_template(&self, id: &i32) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template/{}", self.base_url, id);
         let response = self
@@ -109,7 +127,14 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Modify user template
+    /// `PUT /api/user_template/{id}`
+    ///
+    /// Modify User Template
+    ///
+    /// - **name** can be up to 64 characters
+    /// - **data_limit** must be in bytes and larger or equal to 0
+    /// - **expire_duration** must be in seconds and larger or equat to 0
+    /// - **inbounds** dictionary of protocol:inbound_tags, empty means all inbounds
     pub async fn modify_user_template(
         &self,
         id: &i32,
@@ -148,7 +173,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Remove user template
+    /// `DELETE /api/user_template/{id}`
+    ///
+    /// Remove a User Template by its ID
     pub async fn remove_user_template(&self, id: &i32) -> Result<String, ApiError> {
         let url = format!("{}/api/user_template/{}", self.base_url, id);
         let response = self

@@ -2,17 +2,19 @@ use std::collections::HashMap;
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use validator::Validate;
 
 use crate::models::base::{
     default_data_limit_reset_strategy, default_empty_string, parse_datetime, parse_some_datetime,
 };
 
-use super::proxy::ProxySettings;
+use super::{admin::Admin, proxy::ProxySettings};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Validate)]
 pub struct UserCreate {
     pub proxies: HashMap<String, ProxySettings>,
     pub expire: Option<u32>,
+    #[validate(range(min = 0))]
     pub data_limit: u32, // min: 0, can be 0 or greater
     #[serde(default = "default_data_limit_reset_strategy")]
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
@@ -23,6 +25,7 @@ pub struct UserCreate {
     pub online_at: Option<DateTime<Utc>>,
     pub on_hold_expire_duration: Option<u32>,
     pub on_hold_timeout: Option<DateTime<Utc>>,
+    pub auto_delete_in_days: Option<u32>,
     pub username: String,
     pub status: UserStatusCreate,
 }
@@ -41,10 +44,11 @@ pub enum UserDataLimitResetStrategy {
     Year,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Validate)]
 pub struct UserModify {
     pub proxies: HashMap<String, ProxySettings>,
     pub expire: Option<u32>,
+    #[validate(range(min = 0))]
     pub data_limit: u32, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy,
     pub inbounds: HashMap<String, Vec<String>>,
@@ -57,13 +61,15 @@ pub struct UserModify {
     pub on_hold_expire_duration: Option<u32>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
+    pub auto_delete_in_days: Option<u32>,
     pub status: UserStatusModify,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Validate)]
 pub struct UserResponse {
     pub proxies: HashMap<String, ProxySettings>,
     pub expire: Option<u32>,
+    #[validate(range(min = 0))]
     pub data_limit: Option<u32>, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: HashMap<String, Vec<String>>,
@@ -76,6 +82,7 @@ pub struct UserResponse {
     pub on_hold_expire_duration: Option<u32>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
+    pub auto_delete_in_days: Option<u32>,
     pub username: String,
     pub status: UserStatus,
     pub used_traffic: u32,
@@ -86,6 +93,7 @@ pub struct UserResponse {
     #[serde(default = "default_empty_string")]
     pub subscription_url: String,
     pub excluded_inbounds: HashMap<String, Vec<String>>,
+    pub admin: Vec<Admin>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -137,4 +145,9 @@ pub struct UserUsagesResponse {
 pub struct UsersResponse {
     pub users: Vec<UserResponse>,
     pub total: u32,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct UsersUsagesResponse {
+    pub users: Vec<UserUsagesResponse>,
 }

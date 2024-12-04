@@ -9,6 +9,7 @@ use crate::models::base::default_with_0;
 pub struct UserTemplateCreate {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
+    #[validate(range(min = 0))]
     pub data_limit: u32, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
     pub expire_duration: u32, // default: 0, can be 0 or greater
@@ -23,6 +24,7 @@ pub struct UserTemplateCreate {
 pub struct UserTemplateModify {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
+    #[validate(range(min = 0))]
     pub data_limit: u32, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
     pub expire_duration: u32, // default: 0, can be 0 or greater
@@ -37,6 +39,7 @@ pub struct UserTemplateModify {
 pub struct UserTemplateResponse {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
+    #[validate(range(min = 0))]
     pub data_limit: u32, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
     pub expire_duration: u32, // default: 0, can be 0 or greater

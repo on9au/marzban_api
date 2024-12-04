@@ -1,3 +1,7 @@
+//! # API Methods
+//!
+//! This module contains the API methods for the Marzban API client.
+
 pub mod admin;
 pub mod core;
 pub mod default;

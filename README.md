@@ -1,10 +1,12 @@
 # marzban_api
 
-A simple async client which simplifies the interactions with the [Marzban](https://github.com/Gozargah/Marzban) panel API.
->[!IMPORTANT]
-> Testing to be done!
+A simple async rust client which simplifies the interactions with the [Marzban](https://github.com/Gozargah/Marzban) panel API.
 
-Updated for Marzban v0.4.9
+[![Crates.io](https://img.shields.io/crates/v/marzban_api)](https://crates.io/crates/marzban_api)
+[![Docs.rs](https://docs.rs/marzban_api/badge.svg)](https://docs.rs/marzban_api)
+[![License](https://img.shields.io/crates/l/marzban_api)](LICENSE)
+
+Updated for Marzban v0.7.0
 
 ## Using
 
@@ -18,7 +20,7 @@ or via Cargo.toml:
 
 ```toml
 [dependencies]
-marzban_api = "0.1.0"
+marzban_api = "0.2.0"
 ```
 
 ## Examples

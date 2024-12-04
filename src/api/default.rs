@@ -1,9 +1,13 @@
+//! # Default API Category
+
 use reqwest::StatusCode;
 
 use crate::{client::MarzbanAPIClient, error::ApiError};
 
 impl MarzbanAPIClient {
-    // Base URL, would return HTML
+    /// `GET /`
+    ///
+    /// Base URL of the Marzban panel.
     pub async fn base_url(&self) -> Result<String, ApiError> {
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &self.base_url)

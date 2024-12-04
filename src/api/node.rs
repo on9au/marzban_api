@@ -1,3 +1,5 @@
+//! # Node API Category
+
 use reqwest::StatusCode;
 
 use crate::{
@@ -10,7 +12,9 @@ use crate::{
 };
 
 impl MarzbanAPIClient {
-    // Get Node settings
+    /// `GET /api/node/settings`
+    ///
+    /// Retrieve the current node settings, including TLS certificate.
     pub async fn get_node_settings(&self) -> Result<NodeSettings, ApiError> {
         let url = format!("{}/api/node/settings", self.base_url);
         let response = self
@@ -31,7 +35,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Add Node
+    /// `POST /api/node`
+    ///
+    /// Add a new node to the database and optionally add it as a host.
     pub async fn add_node(&self, body: &NodeCreate) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node", self.base_url);
         let response = self
@@ -60,7 +66,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Get Node
+    /// `GET /api/node/{node_id}`
+    ///
+    /// Retrieve details of a specific node by its ID.
     pub async fn get_node(&self, node_id: &i32) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node/{}", self.base_url, node_id);
         let response = self
@@ -89,7 +97,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Modify Node
+    /// `PUT /api/node/{node_id}`
+    ///
+    /// Update a node's details. Only accessible to sudo admins.
     pub async fn modify_node(
         &self,
         node_id: &i32,
@@ -123,7 +133,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Remove Node
+    /// `DELETE /api/node/{node_id}`
+    ///
+    /// Delete a node and remove it from xray in the background.
     pub async fn remove_node(&self, node_id: &i32) -> Result<String, ApiError> {
         let url = format!("{}/api/node/{}", self.base_url, node_id);
         let response = self
@@ -149,7 +161,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Get Nodes
+    /// `GET /api/nodes`
+    ///
+    /// Retrieve a list of all nodes. Accessible only to sudo admins.
     pub async fn get_nodes(&self) -> Result<Vec<NodeResponse>, ApiError> {
         let url = format!("{}/api/nodes", self.base_url);
         let response = self
@@ -170,7 +184,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Reconnect a Node
+    /// `POST /api/node/{node_id}/reconnect`
+    ///
+    /// Trigger a reconnection for the specified node. Only accessible to sudo admins.
     pub async fn reconnect_node(&self, node_id: &i32) -> Result<String, ApiError> {
         let url = format!("{}/api/node/{}/reconnect", self.base_url, node_id);
         let response = self
@@ -196,7 +212,14 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Get Node usage
+    /// `GET /api/nodes/usage`
+    ///
+    /// Retrieve usage statistics for nodes within a specified date range.
+    ///
+    /// ## Parameters
+    ///
+    /// - `start` - The start date for the range.
+    /// - `end` - The end date for the range.
     pub async fn get_nodes_usage(
         &self,
         start: Option<&str>,

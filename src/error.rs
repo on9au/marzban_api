@@ -1,3 +1,7 @@
+//! # Error module
+//!
+//! This module contains the error types for the Marzban API client.
+
 use thiserror::Error;
 
 #[derive(Debug, Error)]

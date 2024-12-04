@@ -1,3 +1,5 @@
+//! # Admin API Category
+
 use reqwest::StatusCode;
 
 use crate::{
@@ -12,6 +14,15 @@ use crate::{
 };
 
 impl MarzbanAPIClient {
+    /// `POST /api/admin/token`
+    ///
+    /// Authenticate an admin and issue a token.
+    ///
+    /// ## Note
+    ///
+    /// This method does not store the token in the client.
+    ///
+    /// If you want to add the token to the client, use [MarzbanAPIClient::authenticate()] instead.
     pub async fn admin_token(
         &self,
         auth: &BodyAdminTokenApiAdminTokenPost,
@@ -40,7 +51,15 @@ impl MarzbanAPIClient {
         }
     }
 
-    // This method takes in a BodyAdminTokenApiAdminTokenPost, and if auth is successful, makes the returned token into the MarzbanAPIClient struct.
+    /// `POST /api/admin/token`
+    ///
+    /// Authenticate an admin and issue a token.
+    ///
+    /// ## Note
+    ///
+    /// This method takes in a BodyAdminTokenApiAdminTokenPost, and if auth is successful, stores the returned token into the MarzbanAPIClient struct.
+    ///
+    /// If you want to retrieve the token without storing it in the client, use [MarzbanAPIClient::admin_token()] instead.
     pub async fn authenticate(
         &self,
         auth: &BodyAdminTokenApiAdminTokenPost,
@@ -51,6 +70,9 @@ impl MarzbanAPIClient {
         Ok(())
     }
 
+    /// `GET /api/admin`
+    ///
+    /// Retrieve the current authenticated admin.
     pub async fn get_current_admin(&self) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.base_url);
         let response = self
@@ -75,6 +97,9 @@ impl MarzbanAPIClient {
         }
     }
 
+    /// `POST /api/admin`
+    ///
+    /// Create a new admin if the current admin has sudo privileges.
     pub async fn create_admin(&self, body: &AdminCreate) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.base_url);
         let response = self
@@ -113,6 +138,9 @@ impl MarzbanAPIClient {
         }
     }
 
+    /// `PUT /api/admin/{admin_username}`
+    ///
+    /// Modify an existing admin's details.
     pub async fn modify_admin(
         &self,
         admin_username: &str,
@@ -153,6 +181,9 @@ impl MarzbanAPIClient {
         }
     }
 
+    /// `DELETE /api/admin/{admin_username}`
+    ///
+    /// Remove an admin from the database.
     pub async fn delete_admin(&self, admin_username: &str) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin/{}", self.base_url, admin_username);
         let response = self
@@ -188,13 +219,22 @@ impl MarzbanAPIClient {
         }
     }
 
+    /// `GET /api/admins`
+    ///
+    /// Fetch a list of admins with optional filters for pagination and username.
+    ///
+    /// ## Parameters
+    ///
+    /// - `offset` - The offset of the list.
+    /// - `limit` - The limit of the list.
+    /// - `username` - The username of the admin.
     pub async fn get_admins(
         &self,
         offset: Option<&i32>,
         limit: Option<&i32>,
         username: Option<&str>,
     ) -> Result<Vec<Admin>, ApiError> {
-        let url = format!("{}/api/admin/", self.base_url);
+        let url = format!("{}/api/admins/", self.base_url);
         let mut params = Vec::new();
         if let Some(value) = offset {
             params.push(("offset", value.to_string()))

@@ -1,3 +1,5 @@
+//! # System API Category
+
 use std::collections::HashMap;
 
 use reqwest::StatusCode;
@@ -13,7 +15,9 @@ use crate::{
 };
 
 impl MarzbanAPIClient {
-    // Returns system stats
+    /// `GET /api/system`
+    ///
+    /// Fetch system stats including memory, CPU, and user metrics.
     pub async fn get_system_stats(&self) -> Result<SystemStats, ApiError> {
         let url = format!("{}/api/system", self.base_url);
         let response = self
@@ -38,7 +42,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns inbound configs
+    /// `GET /api/inbounds`
+    ///
+    /// Retrieve inbound configurations grouped by protocol.
     pub async fn get_inbounds(&self) -> Result<HashMap<String, Vec<ProxyInbound>>, ApiError> {
         let url = format!("{}/api/inbounds", self.base_url);
         let response = self
@@ -63,7 +69,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns host configs
+    /// `PUT /api/inbounds`
+    ///
+    /// Get a list of proxy hosts grouped by inbound tag.
     pub async fn get_hosts(&self) -> Result<HashMap<String, Vec<ProxyHost>>, ApiError> {
         let url = format!("{}/api/hosts", self.base_url);
         let response = self
@@ -88,7 +96,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns host configs
+    /// `PUT /api/hosts`
+    ///
+    /// Modify proxy hosts and update the configuration.
     pub async fn modify_hosts(
         &self,
         body: &HashMap<String, Vec<ProxyHost>>,

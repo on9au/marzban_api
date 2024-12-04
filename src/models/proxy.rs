@@ -6,7 +6,7 @@ use crate::models::base::default_proxy_host_security;
 pub struct ProxyHost {
     pub remark: String,
     pub address: String,
-    pub port: Option<u32>,
+    pub port: Option<u16>,
     pub sni: Option<String>,
     pub host: Option<String>,
     pub path: Option<String>,
@@ -16,16 +16,26 @@ pub struct ProxyHost {
     pub fingerprint: Option<ProxyHostFingerprint>,
     pub allow_insecure: Option<bool>,
     pub is_disabled: Option<bool>,
+    pub mux_enable: Option<bool>,
+    pub fragment_settings: Option<String>,
+    pub noise_setting: Option<String>,
+    pub random_user_agent: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub enum ProxyHostALPN {
+    #[serde(rename = "h3")]
+    H3,
     #[serde(rename = "h2")]
     H2,
     #[serde(rename = "http/1.1")]
     Http11,
     #[serde(rename = "h2,http/1.1")]
     H2andHttp11,
+    #[serde(rename = "h3,h2,http/1.1")]
+    H3andH2andHttp11,
+    #[serde(rename = "h3,h2")]
+    H3andH2,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -75,7 +85,7 @@ pub struct ProxyInbound {
 #[serde(untagged)]
 pub enum ProxyInboundPort {
     String(String),
-    Integer(u32),
+    Integer(u16),
 }
 
 #[derive(Serialize, Deserialize)]

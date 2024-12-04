@@ -1,3 +1,5 @@
+//! # Subscription API Category
+
 use reqwest::StatusCode;
 
 use crate::{
@@ -10,7 +12,16 @@ use crate::{
 };
 
 impl MarzbanAPIClient {
-    // Returns the website. If you are looking for subscription format, please instead use user_subscription_with_client_type().
+    /// `GET /sub/{user_token}`
+    ///
+    /// Provides a subscription link based on the user agent (Clash, V2Ray, etc.).
+    ///
+    /// ## Note
+    ///
+    /// Dependent on the user agent, the response will be different.
+    ///
+    /// For example, if the user agent is Clash, the response will be a Clash subscription link.
+    /// If the user agent is a browser, the response will be a web page.
     pub async fn user_subscription(&self, user_token: &str) -> Result<String, ApiError> {
         let url = format!("{}/sub/{}", self.base_url, user_token);
         let response = self
@@ -32,7 +43,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns information about the user
+    /// `GET /sub/{user_token}/info`
+    ///
+    /// Retrieves detailed information about the user's subscription.
     pub async fn user_subscription_info(&self, user_token: &str) -> Result<UserResponse, ApiError> {
         let url = format!("{}/sub/{}/info", self.base_url, user_token);
         let response = self
@@ -57,7 +70,14 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns user usage details
+    /// `GET /sub/{user_token}/usage`
+    ///
+    /// Fetches the usage statistics for the user within a specified date range.
+    ///
+    /// ## Parameters
+    ///
+    /// - `start` - The start date for the range.
+    /// - `end` - The end date for the range.
     pub async fn user_get_usage(
         &self,
         user_token: &str,
@@ -96,7 +116,9 @@ impl MarzbanAPIClient {
         }
     }
 
-    // Returns the actual subscription format
+    /// `GET /sub/{user_token}/{client_type}`
+    ///
+    /// Provides a subscription link based on the specified client type (e.g., Clash, V2Ray).
     pub async fn user_subscription_with_client_type(
         &self,
         user_token: &str,
@@ -129,6 +151,7 @@ pub enum ClientTypes {
     Clash,
     Outline,
     V2Ray,
+    V2RayJSON,
 }
 
 impl std::fmt::Display for ClientTypes {
@@ -139,6 +162,7 @@ impl std::fmt::Display for ClientTypes {
             ClientTypes::Clash => write!(f, "clash"),
             ClientTypes::Outline => write!(f, "outline"),
             ClientTypes::V2Ray => write!(f, "v2ray"),
+            ClientTypes::V2RayJSON => write!(f, "v2ray-json"),
         }
     }
 }

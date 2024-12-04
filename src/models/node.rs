@@ -11,11 +11,11 @@ pub struct NodeCreate {
     pub name: String,
     pub address: String,
     #[serde(default = "default_port")]
-    pub port: u32, // default: 62050
+    pub port: u16, // default: 62050
     #[serde(default = "default_api_port")]
-    pub api_port: u32, // default: 62051
+    pub api_port: u16, // default: 62051
     #[serde(default = "default_usage_coefficient")]
-    #[validate(range(min = 0.0))]
+    #[validate(range(exclusive_min = 0.0))]
     pub usage_coefficient: f32, // exclusiveMinimum: 0, default: 1
     #[serde(default = "default_true")]
     pub add_as_new_host: bool, // default: true
@@ -25,8 +25,8 @@ pub struct NodeCreate {
 pub struct NodeModify {
     pub name: Option<String>,
     pub address: Option<String>,
-    pub port: Option<u32>,
-    pub api_port: Option<u32>,
+    pub port: Option<u16>,
+    pub api_port: Option<u16>,
     pub usage_coefficient: Option<f32>,
     pub status: Option<NodeStatus>,
 }
@@ -36,11 +36,11 @@ pub struct NodeResponse {
     pub name: String,
     pub address: String,
     #[serde(default = "default_port")]
-    pub port: u32,
+    pub port: u16,
     #[serde(default = "default_api_port")]
-    pub api_port: u32,
+    pub api_port: u16,
     #[serde(default = "default_usage_coefficient")]
-    #[validate(range(min = 0.0))]
+    #[validate(range(exclusive_min = 0.0))]
     pub usage_coefficient: f32,
     pub id: u32,
     pub xray_version: String,
