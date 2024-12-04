@@ -100,7 +100,7 @@ pub struct ProxySettings {
     pub method: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq, Eq, Hash)]
 pub enum ProxyTypes {
     #[serde(rename = "vmess")]
     Vmess,

@@ -9,7 +9,7 @@ use crate::{
     error::ApiError,
     models::{
         errors::HTTPValidationError,
-        proxy::{ProxyHost, ProxyInbound},
+        proxy::{ProxyHost, ProxyInbound, ProxyTypes},
         system::SystemStats,
     },
 };
@@ -45,7 +45,7 @@ impl MarzbanAPIClient {
     /// `GET /api/inbounds`
     ///
     /// Retrieve inbound configurations grouped by protocol.
-    pub async fn get_inbounds(&self) -> Result<HashMap<String, Vec<ProxyInbound>>, ApiError> {
+    pub async fn get_inbounds(&self) -> Result<HashMap<ProxyTypes, Vec<ProxyInbound>>, ApiError> {
         let url = format!("{}/api/inbounds", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
@@ -55,7 +55,7 @@ impl MarzbanAPIClient {
 
         match response.status() {
             StatusCode::OK => response
-                .json::<HashMap<String, Vec<ProxyInbound>>>()
+                .json::<HashMap<ProxyTypes, Vec<ProxyInbound>>>()
                 .await
                 .map_err(ApiError::NetworkError),
             StatusCode::UNPROCESSABLE_ENTITY => {
@@ -72,7 +72,7 @@ impl MarzbanAPIClient {
     /// `PUT /api/inbounds`
     ///
     /// Get a list of proxy hosts grouped by inbound tag.
-    pub async fn get_hosts(&self) -> Result<HashMap<String, Vec<ProxyHost>>, ApiError> {
+    pub async fn get_hosts(&self) -> Result<HashMap<ProxyTypes, Vec<ProxyHost>>, ApiError> {
         let url = format!("{}/api/hosts", self.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
@@ -82,7 +82,7 @@ impl MarzbanAPIClient {
 
         match response.status() {
             StatusCode::OK => response
-                .json::<HashMap<String, Vec<ProxyHost>>>()
+                .json::<HashMap<ProxyTypes, Vec<ProxyHost>>>()
                 .await
                 .map_err(ApiError::NetworkError),
             StatusCode::UNPROCESSABLE_ENTITY => {

@@ -5,6 +5,8 @@ use validator::Validate;
 
 use crate::models::base::default_with_0;
 
+use super::proxy::ProxyTypes;
+
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserTemplateCreate {
     pub name: Option<String>,
@@ -17,7 +19,7 @@ pub struct UserTemplateCreate {
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
     pub username_suffix: String, // maxLength: 20, minLength: 1
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Validate)]
@@ -32,7 +34,7 @@ pub struct UserTemplateModify {
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
     pub username_suffix: String, // maxLength: 20, minLength: 1
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Validate)]
@@ -47,6 +49,6 @@ pub struct UserTemplateResponse {
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
     pub username_suffix: String, // maxLength: 20, minLength: 1
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub id: u32,
 }

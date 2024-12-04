@@ -46,7 +46,7 @@
 //! async fn main() {
 //!     let client = MarzbanAPIClient::new("http://localhost:8000");
 //!     client.authenticate(&BodyAdminTokenApiAdminTokenPost {
-//!         grant_type: None,
+//!         grant_type: Some("password".to_string()),
 //!         username: "admin".to_string(),
 //!         password: "admin".to_string(),
 //!         scope: "".to_string(),

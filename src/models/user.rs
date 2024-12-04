@@ -8,17 +8,20 @@ use crate::models::base::{
     default_data_limit_reset_strategy, default_empty_string, parse_datetime, parse_some_datetime,
 };
 
-use super::{admin::Admin, proxy::ProxySettings};
+use super::{
+    admin::Admin,
+    proxy::{ProxySettings, ProxyTypes},
+};
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserCreate {
-    pub proxies: HashMap<String, ProxySettings>,
+    pub proxies: HashMap<ProxyTypes, ProxySettings>,
     pub expire: Option<u32>,
     #[validate(range(min = 0))]
     pub data_limit: u32, // min: 0, can be 0 or greater
     #[serde(default = "default_data_limit_reset_strategy")]
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub note: Option<String>,
     pub sub_updated_at: Option<DateTime<Utc>>,
     pub sub_last_user_agent: Option<String>,
@@ -46,12 +49,12 @@ pub enum UserDataLimitResetStrategy {
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserModify {
-    pub proxies: HashMap<String, ProxySettings>,
+    pub proxies: HashMap<ProxyTypes, ProxySettings>,
     pub expire: Option<u32>,
     #[validate(range(min = 0))]
     pub data_limit: u32, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy,
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub note: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub sub_updated_at: Option<DateTime<Utc>>,
@@ -67,12 +70,12 @@ pub struct UserModify {
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserResponse {
-    pub proxies: HashMap<String, ProxySettings>,
+    pub proxies: HashMap<ProxyTypes, ProxySettings>,
     pub expire: Option<u32>,
     #[validate(range(min = 0))]
     pub data_limit: Option<u32>, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
-    pub inbounds: HashMap<String, Vec<String>>,
+    pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub note: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub sub_updated_at: Option<DateTime<Utc>>,
@@ -92,7 +95,7 @@ pub struct UserResponse {
     pub links: Vec<String>,
     #[serde(default = "default_empty_string")]
     pub subscription_url: String,
-    pub excluded_inbounds: HashMap<String, Vec<String>>,
+    pub excluded_inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub admin: Vec<Admin>,
 }
 
