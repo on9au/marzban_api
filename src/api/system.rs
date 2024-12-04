@@ -19,7 +19,7 @@ impl MarzbanAPIClient {
     ///
     /// Fetch system stats including memory, CPU, and user metrics.
     pub async fn get_system_stats(&self) -> Result<SystemStats, ApiError> {
-        let url = format!("{}/api/system", self.base_url);
+        let url = format!("{}/api/system", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -46,7 +46,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieve inbound configurations grouped by protocol.
     pub async fn get_inbounds(&self) -> Result<HashMap<ProxyTypes, Vec<ProxyInbound>>, ApiError> {
-        let url = format!("{}/api/inbounds", self.base_url);
+        let url = format!("{}/api/inbounds", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -73,7 +73,7 @@ impl MarzbanAPIClient {
     ///
     /// Get a list of proxy hosts grouped by inbound tag.
     pub async fn get_hosts(&self) -> Result<HashMap<ProxyTypes, Vec<ProxyHost>>, ApiError> {
-        let url = format!("{}/api/hosts", self.base_url);
+        let url = format!("{}/api/hosts", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -103,7 +103,7 @@ impl MarzbanAPIClient {
         &self,
         body: &HashMap<String, Vec<ProxyHost>>,
     ) -> Result<HashMap<String, Vec<ProxyHost>>, ApiError> {
-        let url = format!("{}/api/hosts", self.base_url);
+        let url = format!("{}/api/hosts", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await

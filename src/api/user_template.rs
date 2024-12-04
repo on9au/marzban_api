@@ -25,7 +25,7 @@ impl MarzbanAPIClient {
         offset: Option<i32>,
         limit: Option<i32>,
     ) -> Result<Vec<UserTemplateResponse>, ApiError> {
-        let url = format!("{}/api/user_template", self.base_url);
+        let url = format!("{}/api/user_template", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = offset {
             params.push(("offset", value))
@@ -69,7 +69,7 @@ impl MarzbanAPIClient {
         &self,
         body: &UserTemplateCreate,
     ) -> Result<UserTemplateResponse, ApiError> {
-        let url = format!("{}/api/user_template", self.base_url);
+        let url = format!("{}/api/user_template", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -103,7 +103,7 @@ impl MarzbanAPIClient {
     ///
     /// Get User Template information with id
     pub async fn get_user_template(&self, id: &i32) -> Result<UserTemplateResponse, ApiError> {
-        let url = format!("{}/api/user_template/{}", self.base_url, id);
+        let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -140,7 +140,7 @@ impl MarzbanAPIClient {
         id: &i32,
         body: &UserTemplateModify,
     ) -> Result<UserTemplateResponse, ApiError> {
-        let url = format!("{}/api/user_template/{}", self.base_url, id);
+        let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await
@@ -177,7 +177,7 @@ impl MarzbanAPIClient {
     ///
     /// Remove a User Template by its ID
     pub async fn remove_user_template(&self, id: &i32) -> Result<String, ApiError> {
-        let url = format!("{}/api/user_template/{}", self.base_url, id);
+        let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
             .await

@@ -16,7 +16,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieve the current node settings, including TLS certificate.
     pub async fn get_node_settings(&self) -> Result<NodeSettings, ApiError> {
-        let url = format!("{}/api/node/settings", self.base_url);
+        let url = format!("{}/api/node/settings", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -39,7 +39,7 @@ impl MarzbanAPIClient {
     ///
     /// Add a new node to the database and optionally add it as a host.
     pub async fn add_node(&self, body: &NodeCreate) -> Result<NodeResponse, ApiError> {
-        let url = format!("{}/api/node", self.base_url);
+        let url = format!("{}/api/node", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -70,7 +70,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieve details of a specific node by its ID.
     pub async fn get_node(&self, node_id: &i32) -> Result<NodeResponse, ApiError> {
-        let url = format!("{}/api/node/{}", self.base_url, node_id);
+        let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -105,7 +105,7 @@ impl MarzbanAPIClient {
         node_id: &i32,
         body: &NodeModify,
     ) -> Result<NodeResponse, ApiError> {
-        let url = format!("{}/api/node/{}", self.base_url, node_id);
+        let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await
@@ -137,7 +137,7 @@ impl MarzbanAPIClient {
     ///
     /// Delete a node and remove it from xray in the background.
     pub async fn remove_node(&self, node_id: &i32) -> Result<String, ApiError> {
-        let url = format!("{}/api/node/{}", self.base_url, node_id);
+        let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
             .await
@@ -165,7 +165,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieve a list of all nodes. Accessible only to sudo admins.
     pub async fn get_nodes(&self) -> Result<Vec<NodeResponse>, ApiError> {
-        let url = format!("{}/api/nodes", self.base_url);
+        let url = format!("{}/api/nodes", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -188,7 +188,7 @@ impl MarzbanAPIClient {
     ///
     /// Trigger a reconnection for the specified node. Only accessible to sudo admins.
     pub async fn reconnect_node(&self, node_id: &i32) -> Result<String, ApiError> {
-        let url = format!("{}/api/node/{}/reconnect", self.base_url, node_id);
+        let url = format!("{}/api/node/{}/reconnect", self.inner.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -225,7 +225,7 @@ impl MarzbanAPIClient {
         start: Option<&str>,
         end: Option<&str>,
     ) -> Result<NodesUsageResponse, ApiError> {
-        let url = format!("{}/api/nodes/usage", self.base_url);
+        let url = format!("{}/api/nodes/usage", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = start {
             params.push(("start", value))

@@ -27,7 +27,7 @@ impl MarzbanAPIClient {
         &self,
         auth: &BodyAdminTokenApiAdminTokenPost,
     ) -> Result<Token, ApiError> {
-        let url = format!("{}/api/admin/token", self.base_url);
+        let url = format!("{}/api/admin/token", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -65,7 +65,7 @@ impl MarzbanAPIClient {
         auth: &BodyAdminTokenApiAdminTokenPost,
     ) -> Result<(), ApiError> {
         let token = self.admin_token(auth).await?;
-        let mut token_lock = self.token.write().await;
+        let mut token_lock = self.inner.token.write().await;
         *token_lock = Some(token.access_token);
         Ok(())
     }
@@ -74,7 +74,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieve the current authenticated admin.
     pub async fn get_current_admin(&self) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin", self.base_url);
+        let url = format!("{}/api/admin", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -101,7 +101,7 @@ impl MarzbanAPIClient {
     ///
     /// Create a new admin if the current admin has sudo privileges.
     pub async fn create_admin(&self, body: &AdminCreate) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin", self.base_url);
+        let url = format!("{}/api/admin", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -146,7 +146,7 @@ impl MarzbanAPIClient {
         admin_username: &str,
         body: &AdminModify,
     ) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin/{}", self.base_url, admin_username);
+        let url = format!("{}/api/admin/{}", self.inner.base_url, admin_username);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await
@@ -185,7 +185,7 @@ impl MarzbanAPIClient {
     ///
     /// Remove an admin from the database.
     pub async fn delete_admin(&self, admin_username: &str) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin/{}", self.base_url, admin_username);
+        let url = format!("{}/api/admin/{}", self.inner.base_url, admin_username);
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
             .await
@@ -234,7 +234,7 @@ impl MarzbanAPIClient {
         limit: Option<&i32>,
         username: Option<&str>,
     ) -> Result<Vec<Admin>, ApiError> {
-        let url = format!("{}/api/admins/", self.base_url);
+        let url = format!("{}/api/admins/", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = offset {
             params.push(("offset", value.to_string()))

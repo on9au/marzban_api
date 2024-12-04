@@ -23,7 +23,7 @@ impl MarzbanAPIClient {
     /// For example, if the user agent is Clash, the response will be a Clash subscription link.
     /// If the user agent is a browser, the response will be a web page.
     pub async fn user_subscription(&self, user_token: &str) -> Result<String, ApiError> {
-        let url = format!("{}/sub/{}", self.base_url, user_token);
+        let url = format!("{}/sub/{}", self.inner.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -47,7 +47,7 @@ impl MarzbanAPIClient {
     ///
     /// Retrieves detailed information about the user's subscription.
     pub async fn user_subscription_info(&self, user_token: &str) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/sub/{}/info", self.base_url, user_token);
+        let url = format!("{}/sub/{}/info", self.inner.base_url, user_token);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -84,7 +84,7 @@ impl MarzbanAPIClient {
         start: Option<&str>,
         end: Option<&str>,
     ) -> Result<UserUsagesResponse, ApiError> {
-        let url = format!("{}/sub/{}/usage", self.base_url, user_token);
+        let url = format!("{}/sub/{}/usage", self.inner.base_url, user_token);
         let mut params = Vec::new();
         if let Some(value) = start {
             params.push(("start", value))
@@ -124,7 +124,7 @@ impl MarzbanAPIClient {
         user_token: &str,
         client_type: &ClientTypes,
     ) -> Result<String, ApiError> {
-        let url = format!("{}/sub/{}/{}", self.base_url, user_token, client_type);
+        let url = format!("{}/sub/{}/{}", self.inner.base_url, user_token, client_type);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await

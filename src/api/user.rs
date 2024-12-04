@@ -42,7 +42,7 @@ impl MarzbanAPIClient {
     /// - **on_hold_timeout**: UTC timestamp when `on_hold` status should start or end.
     /// - **on_hold_expire_duration**: Duration (in seconds) for how long the user should stay in `on_hold` status.
     pub async fn add_user(&self, new_user: &UserCreate) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user", self.base_url);
+        let url = format!("{}/api/user", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -73,7 +73,7 @@ impl MarzbanAPIClient {
     ///
     /// Get user information
     pub async fn get_user(&self, username: &str) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user/{}", self.base_url, username);
+        let url = format!("{}/api/user/{}", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -121,7 +121,7 @@ impl MarzbanAPIClient {
         username: &str,
         body: &UserModify,
     ) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user/{}", self.base_url, username);
+        let url = format!("{}/api/user/{}", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await
@@ -153,7 +153,7 @@ impl MarzbanAPIClient {
     ///
     /// Remove a user
     pub async fn delete_user(&self, username: &str) -> Result<String, ApiError> {
-        let url = format!("{}/api/user/{}", self.base_url, username);
+        let url = format!("{}/api/user/{}", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::DELETE, &url)
             .await
@@ -181,7 +181,7 @@ impl MarzbanAPIClient {
     ///
     /// Reset user data usage
     pub async fn reset_user_data_usage(&self, username: &str) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user/{}/reset", self.base_url, username);
+        let url = format!("{}/api/user/{}/reset", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -215,7 +215,7 @@ impl MarzbanAPIClient {
     ///
     /// Revoke users subscription (Subscription link and proxies)
     pub async fn revoke_user_subscription(&self, username: &str) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user/{}/revoke_sub", self.base_url, username);
+        let url = format!("{}/api/user/{}/revoke_sub", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -249,7 +249,7 @@ impl MarzbanAPIClient {
         &self,
         query_params: &GetUsersQueryParams,
     ) -> Result<UsersResponse, ApiError> {
-        let url = format!("{}/api/users", self.base_url);
+        let url = format!("{}/api/users", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, &url)
             .await
@@ -277,7 +277,7 @@ impl MarzbanAPIClient {
     ///
     /// Reset all users data usage
     pub async fn reset_all_users_data_usage(&self) -> Result<String, ApiError> {
-        let url = format!("{}/api/users/reset", self.base_url);
+        let url = format!("{}/api/users/reset", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, &url)
             .await
@@ -302,7 +302,7 @@ impl MarzbanAPIClient {
         start: Option<&str>,
         end: Option<&str>,
     ) -> Result<UserUsagesResponse, ApiError> {
-        let url = format!("{}/api/user/{}/usage", self.base_url, username);
+        let url = format!("{}/api/user/{}/usage", self.inner.base_url, username);
         let mut params = Vec::new();
         if let Some(value) = start {
             params.push(("start", value.to_string()))
@@ -353,7 +353,7 @@ impl MarzbanAPIClient {
         end: Option<&str>,
         admin: Option<Vec<String>>,
     ) -> Result<UsersUsagesResponse, ApiError> {
-        let url = format!("{}/api/users/usage", self.base_url);
+        let url = format!("{}/api/users/usage", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = start {
             params.push(("start", value.to_string()))
@@ -396,7 +396,7 @@ impl MarzbanAPIClient {
         username: &str,
         admin_username: &str,
     ) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/api/user/{}/set-owner", self.base_url, username);
+        let url = format!("{}/api/user/{}/set-owner", self.inner.base_url, username);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, &url)
             .await
@@ -437,7 +437,7 @@ impl MarzbanAPIClient {
         expired_before: Option<DateTime<Utc>>,
         expired_after: Option<DateTime<Utc>>,
     ) -> Result<Vec<String>, ApiError> {
-        let url = format!("{}/api/users/expired", self.base_url);
+        let url = format!("{}/api/users/expired", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = expired_before {
             params.push(("expired_before", value))
@@ -481,7 +481,7 @@ impl MarzbanAPIClient {
         expired_before: Option<DateTime<Utc>>,
         expired_after: Option<DateTime<Utc>>,
     ) -> Result<Vec<String>, ApiError> {
-        let url = format!("{}/api/users/expired", self.base_url);
+        let url = format!("{}/api/users/expired", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = expired_before {
             params.push(("expired_before", value))
