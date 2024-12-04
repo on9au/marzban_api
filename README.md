@@ -20,7 +20,7 @@ or via Cargo.toml:
 
 ```toml
 [dependencies]
-marzban_api = "0.2.1"
+marzban_api = "0.2.2"
 ```
 
 ## Examples
