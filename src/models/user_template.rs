@@ -12,9 +12,9 @@ pub struct UserTemplateCreate {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
     #[validate(range(min = 0))]
-    pub data_limit: u32, // default: 0, can be 0 or greater
+    pub data_limit: u64, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
-    pub expire_duration: u32, // default: 0, can be 0 or greater
+    pub expire_duration: u64, // default: 0, can be 0 or greater
     #[validate(length(min = 1, max = 20))]
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
@@ -27,9 +27,9 @@ pub struct UserTemplateModify {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
     #[validate(range(min = 0))]
-    pub data_limit: u32, // default: 0, can be 0 or greater
+    pub data_limit: u64, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
-    pub expire_duration: u32, // default: 0, can be 0 or greater
+    pub expire_duration: u64, // default: 0, can be 0 or greater
     #[validate(length(min = 1, max = 20))]
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
@@ -42,13 +42,13 @@ pub struct UserTemplateResponse {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
     #[validate(range(min = 0))]
-    pub data_limit: u32, // default: 0, can be 0 or greater
+    pub data_limit: u64, // default: 0, can be 0 or greater
     #[serde(default = "default_with_0")]
-    pub expire_duration: u32, // default: 0, can be 0 or greater
+    pub expire_duration: u64, // default: 0, can be 0 or greater
     #[validate(length(min = 1, max = 20))]
     pub username_prefix: String, // maxLength: 20, minLength: 1
     #[validate(length(min = 1, max = 20))]
     pub username_suffix: String, // maxLength: 20, minLength: 1
     pub inbounds: HashMap<ProxyTypes, Vec<String>>,
-    pub id: u32,
+    pub id: u64,
 }

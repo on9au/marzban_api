@@ -16,9 +16,9 @@ use super::{
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserCreate {
     pub proxies: HashMap<ProxyTypes, ProxySettings>,
-    pub expire: Option<u32>,
+    pub expire: Option<u64>,
     #[validate(range(min = 0))]
-    pub data_limit: u32, // min: 0, can be 0 or greater
+    pub data_limit: u64, // min: 0, can be 0 or greater
     #[serde(default = "default_data_limit_reset_strategy")]
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: HashMap<ProxyTypes, Vec<String>>,
@@ -26,9 +26,9 @@ pub struct UserCreate {
     pub sub_updated_at: Option<DateTime<Utc>>,
     pub sub_last_user_agent: Option<String>,
     pub online_at: Option<DateTime<Utc>>,
-    pub on_hold_expire_duration: Option<u32>,
+    pub on_hold_expire_duration: Option<u64>,
     pub on_hold_timeout: Option<DateTime<Utc>>,
-    pub auto_delete_in_days: Option<u32>,
+    pub auto_delete_in_days: Option<u64>,
     pub username: String,
     pub status: UserStatusCreate,
 }
@@ -50,9 +50,9 @@ pub enum UserDataLimitResetStrategy {
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserModify {
     pub proxies: HashMap<ProxyTypes, ProxySettings>,
-    pub expire: Option<u32>,
+    pub expire: Option<u64>,
     #[validate(range(min = 0))]
-    pub data_limit: u32, // min: 0, can be 0 or greater
+    pub data_limit: u64, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy,
     pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub note: Option<String>,
@@ -61,19 +61,19 @@ pub struct UserModify {
     pub sub_last_user_agent: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub online_at: Option<DateTime<Utc>>,
-    pub on_hold_expire_duration: Option<u32>,
+    pub on_hold_expire_duration: Option<u64>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
-    pub auto_delete_in_days: Option<u32>,
+    pub auto_delete_in_days: Option<u64>,
     pub status: UserStatusModify,
 }
 
 #[derive(Serialize, Deserialize, Validate)]
 pub struct UserResponse {
     pub proxies: HashMap<ProxyTypes, ProxySettings>,
-    pub expire: Option<u32>,
+    pub expire: Option<u64>,
     #[validate(range(min = 0))]
-    pub data_limit: Option<u32>, // min: 0, can be 0 or greater
+    pub data_limit: Option<u64>, // min: 0, can be 0 or greater
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: HashMap<ProxyTypes, Vec<String>>,
     pub note: Option<String>,
@@ -82,14 +82,14 @@ pub struct UserResponse {
     pub sub_last_user_agent: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub online_at: Option<DateTime<Utc>>,
-    pub on_hold_expire_duration: Option<u32>,
+    pub on_hold_expire_duration: Option<u64>,
     #[serde(deserialize_with = "parse_some_datetime")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
-    pub auto_delete_in_days: Option<u32>,
+    pub auto_delete_in_days: Option<u64>,
     pub username: String,
     pub status: UserStatus,
-    pub used_traffic: u32,
-    pub lifetime_used_traffic: u32, // default: 0
+    pub used_traffic: u64,
+    pub lifetime_used_traffic: u64, // default: 0
     #[serde(deserialize_with = "parse_datetime")]
     pub created_at: DateTime<Utc>,
     pub links: Vec<String>,
@@ -133,9 +133,9 @@ pub enum UserStatusModify {
 
 #[derive(Serialize, Deserialize)]
 pub struct UserUsageResponse {
-    pub node_id: Option<u32>,
+    pub node_id: Option<u64>,
     pub node_name: String,
-    pub used_traffic: u32,
+    pub used_traffic: u64,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -147,7 +147,7 @@ pub struct UserUsagesResponse {
 #[derive(Serialize, Deserialize)]
 pub struct UsersResponse {
     pub users: Vec<UserResponse>,
-    pub total: u32,
+    pub total: u64,
 }
 
 #[derive(Serialize, Deserialize)]

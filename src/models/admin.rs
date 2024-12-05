@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 pub struct Admin {
     pub username: String,
     pub is_sudo: bool,
-    pub telegram_id: Option<u32>,
+    pub telegram_id: Option<u64>,
     pub discord_webhook: Option<String>,
 }
 
@@ -12,7 +12,7 @@ pub struct Admin {
 pub struct AdminCreate {
     pub username: String,
     pub is_sudo: bool,
-    pub telegram_id: Option<u32>,
+    pub telegram_id: Option<u64>,
     pub discord_webhook: Option<String>,
     pub password: String,
 }
@@ -21,6 +21,6 @@ pub struct AdminCreate {
 pub struct AdminModify {
     pub password: Option<String>,
     pub is_sudo: bool,
-    pub telegram_id: Option<u32>,
+    pub telegram_id: Option<u64>,
     pub discord_webhook: Option<String>,
 }

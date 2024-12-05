@@ -16,7 +16,7 @@ pub struct NodeCreate {
     pub api_port: u16, // default: 62051
     #[serde(default = "default_usage_coefficient")]
     #[validate(range(exclusive_min = 0.0))]
-    pub usage_coefficient: f32, // exclusiveMinimum: 0, default: 1
+    pub usage_coefficient: f64, // exclusiveMinimum: 0, default: 1
     #[serde(default = "default_true")]
     pub add_as_new_host: bool, // default: true
 }
@@ -27,7 +27,7 @@ pub struct NodeModify {
     pub address: Option<String>,
     pub port: Option<u16>,
     pub api_port: Option<u16>,
-    pub usage_coefficient: Option<f32>,
+    pub usage_coefficient: Option<f64>,
     pub status: Option<NodeStatus>,
 }
 
@@ -41,7 +41,7 @@ pub struct NodeResponse {
     pub api_port: u16,
     #[serde(default = "default_usage_coefficient")]
     #[validate(range(exclusive_min = 0.0))]
-    pub usage_coefficient: f32,
+    pub usage_coefficient: f64,
     pub id: u32,
     pub xray_version: String,
     pub status: NodeStatus,
@@ -69,10 +69,10 @@ pub enum NodeStatus {
 
 #[derive(Serialize, Deserialize)]
 pub struct NodeUsageResponse {
-    pub node_id: Option<u32>,
+    pub node_id: Option<u64>,
     pub node_name: String,
-    pub uplink: u32,
-    pub downlink: u32,
+    pub uplink: u64,
+    pub downlink: u64,
 }
 
 // Note 'Nodes' (S plural) in NodesUsageResponse.

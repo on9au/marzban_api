@@ -3,7 +3,7 @@ use serde::{Deserialize, Deserializer};
 
 use super::{proxy::ProxyHostSecurity, user::UserDataLimitResetStrategy};
 
-pub(crate) fn default_usage_coefficient() -> f32 {
+pub(crate) fn default_usage_coefficient() -> f64 {
     1.0
 }
 
@@ -27,7 +27,7 @@ pub(crate) fn default_proxy_host_security() -> ProxyHostSecurity {
     ProxyHostSecurity::InboundDefault
 }
 
-pub(crate) fn default_with_0() -> u32 {
+pub(crate) fn default_with_0() -> u64 {
     0
 }
 
