@@ -18,11 +18,17 @@ pub struct UserCreate {
     pub data_limit_reset_strategy: UserDataLimitResetStrategy, // default: no_reset
     pub inbounds: Inbounds,
     pub note: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sub_updated_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sub_last_user_agent: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub online_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_hold_expire_duration: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub auto_delete_in_days: Option<u64>,
     pub username: String,
     pub status: UserStatusCreate,
@@ -52,22 +58,32 @@ pub struct UserModify {
     pub inbounds: Inbounds,
     pub note: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sub_updated_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sub_last_user_agent: Option<String>,
     #[serde(deserialize_with = "parse_some_datetime")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub online_at: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_hold_expire_duration: Option<u64>,
     #[serde(deserialize_with = "parse_some_datetime")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub on_hold_timeout: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub auto_delete_in_days: Option<u64>,
     pub status: UserStatusModify,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Proxies {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub trojan: Option<Trojan>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub vless: Option<Vless>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub vmess: Option<Vmess>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub shadowsocks: Option<Shadowsocks>,
 }
 
