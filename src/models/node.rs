@@ -6,7 +6,7 @@ use crate::models::base::{
     default_usage_coefficient,
 };
 
-#[derive(Serialize, Deserialize, Validate)]
+#[derive(Serialize, Deserialize, Validate, Debug)]
 pub struct NodeCreate {
     pub name: String,
     pub address: String,
@@ -21,7 +21,7 @@ pub struct NodeCreate {
     pub add_as_new_host: bool, // default: true
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct NodeModify {
     pub name: Option<String>,
     pub address: Option<String>,
@@ -31,7 +31,7 @@ pub struct NodeModify {
     pub status: Option<NodeStatus>,
 }
 
-#[derive(Serialize, Deserialize, Validate)]
+#[derive(Serialize, Deserialize, Validate, Debug)]
 pub struct NodeResponse {
     pub name: String,
     pub address: String,
@@ -48,14 +48,14 @@ pub struct NodeResponse {
     pub message: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct NodeSettings {
     #[serde(default = "default_min_node_version")]
     pub min_node_version: String,
     pub certificate: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum NodeStatus {
     #[serde(rename = "connected")]
     Connected,
@@ -67,7 +67,7 @@ pub enum NodeStatus {
     Disabled,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct NodeUsageResponse {
     pub node_id: Option<u64>,
     pub node_name: String,
@@ -76,7 +76,7 @@ pub struct NodeUsageResponse {
 }
 
 // Note 'Nodes' (S plural) in NodesUsageResponse.
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct NodesUsageResponse {
     pub usages: Vec<NodeUsageResponse>,
 }

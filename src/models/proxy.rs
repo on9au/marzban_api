@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::models::base::default_proxy_host_security;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ProxyHost {
     pub remark: String,
     pub address: String,
@@ -22,7 +22,7 @@ pub struct ProxyHost {
     pub random_user_agent: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum ProxyHostALPN {
     #[serde(rename = "h3")]
     H3,
@@ -38,7 +38,7 @@ pub enum ProxyHostALPN {
     H3andH2,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum ProxyHostFingerprint {
     #[serde(rename = "chrome")]
     Chrome,
@@ -62,7 +62,7 @@ pub enum ProxyHostFingerprint {
     Randomized,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum ProxyHostSecurity {
     #[serde(rename = "inbound_default")]
     InboundDefault,
@@ -72,7 +72,7 @@ pub enum ProxyHostSecurity {
     Tls,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ProxyInbound {
     pub tag: String,
     pub protocol: ProxyTypes,
@@ -81,14 +81,14 @@ pub struct ProxyInbound {
     pub port: ProxyInboundPort,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum ProxyInboundPort {
     String(String),
     Integer(u16),
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ProxySettings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -100,7 +100,7 @@ pub struct ProxySettings {
     pub method: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, PartialEq, Eq, Hash, Debug)]
 pub enum ProxyTypes {
     #[serde(rename = "vmess")]
     Vmess,

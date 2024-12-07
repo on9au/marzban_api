@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Admin {
     pub username: String,
     pub is_sudo: bool,
@@ -8,7 +8,7 @@ pub struct Admin {
     pub discord_webhook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct AdminCreate {
     pub username: String,
     pub is_sudo: bool,
@@ -17,7 +17,7 @@ pub struct AdminCreate {
     pub password: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct AdminModify {
     pub password: Option<String>,
     pub is_sudo: bool,

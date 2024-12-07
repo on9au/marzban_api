@@ -5,9 +5,7 @@ use validator::Validate;
 
 use crate::models::base::default_with_0;
 
-use super::proxy::ProxyTypes;
-
-#[derive(Serialize, Deserialize, Validate)]
+#[derive(Serialize, Deserialize, Validate, Debug)]
 pub struct UserTemplateCreate {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
@@ -22,7 +20,7 @@ pub struct UserTemplateCreate {
     pub inbounds: HashMap<String, Vec<String>>,
 }
 
-#[derive(Serialize, Deserialize, Validate)]
+#[derive(Serialize, Deserialize, Validate, Debug)]
 pub struct UserTemplateModify {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
@@ -37,7 +35,7 @@ pub struct UserTemplateModify {
     pub inbounds: HashMap<String, Vec<String>>,
 }
 
-#[derive(Serialize, Deserialize, Validate)]
+#[derive(Serialize, Deserialize, Validate, Debug)]
 pub struct UserTemplateResponse {
     pub name: Option<String>,
     #[serde(default = "default_with_0")]
