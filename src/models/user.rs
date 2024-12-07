@@ -73,33 +73,45 @@ pub struct Proxies {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Trojan {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flow: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vless {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flow: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vmess {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub security: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Shadowsocks {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub method: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Inbounds {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub trojan: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub vless: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub vmess: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub shadowsocks: Option<Vec<String>>,
 }
 
