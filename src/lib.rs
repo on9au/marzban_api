@@ -12,7 +12,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! marzban_api_client = "0.2.3"
+//! marzban_api_client = "0.2.4"
 //! ```
 //!
 //! or run this command:
