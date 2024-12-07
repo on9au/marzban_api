@@ -73,26 +73,26 @@ pub struct Proxies {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Trojan {
-    pub password: String,
-    pub flow: String,
+    pub password: Option<String>,
+    pub flow: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vless {
-    pub id: String,
-    pub flow: String,
+    pub id: Option<String>,
+    pub flow: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vmess {
-    pub id: String,
-    pub security: String,
+    pub id: Option<String>,
+    pub security: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Shadowsocks {
-    pub password: String,
-    pub method: String,
+    pub password: Option<String>,
+    pub method: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
