@@ -65,42 +65,42 @@ pub struct UserModify {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Proxies {
-    trojan: Option<Trojan>,
-    vless: Option<Vless>,
-    vmess: Option<Vmess>,
-    shadowsocks: Option<Shadowsocks>,
+    pub trojan: Option<Trojan>,
+    pub vless: Option<Vless>,
+    pub vmess: Option<Vmess>,
+    pub shadowsocks: Option<Shadowsocks>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Trojan {
-    password: String,
-    flow: String,
+    pub password: String,
+    pub flow: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vless {
-    id: String,
-    flow: String,
+    pub id: String,
+    pub flow: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vmess {
-    id: String,
-    security: String,
+    pub id: String,
+    pub security: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Shadowsocks {
-    password: String,
-    method: String,
+    pub password: String,
+    pub method: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Inbounds {
-    trojan: Option<Vec<String>>,
-    vless: Option<Vec<String>>,
-    vmess: Option<Vec<String>>,
-    shadowsocks: Option<Vec<String>>,
+    pub trojan: Option<Vec<String>>,
+    pub vless: Option<Vec<String>>,
+    pub vmess: Option<Vec<String>>,
+    pub shadowsocks: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Validate, Debug)]
