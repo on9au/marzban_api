@@ -4,7 +4,7 @@
 
 use std::{fmt::Debug, sync::Arc};
 
-use reqwest::Client;
+use reqwest::{Client, IntoUrl};
 use tokio::sync::RwLock;
 
 /// The Marzban API client.
@@ -65,7 +65,7 @@ impl MarzbanAPIClient {
     pub(crate) async fn prepare_authorized_request(
         &self,
         method: reqwest::Method,
-        url: &str,
+        url: impl IntoUrl,
     ) -> reqwest::RequestBuilder {
         let mut request_builder = self.inner.client.request(method, url);
         if let Some(token) = self.inner.token.read().await.as_ref() {

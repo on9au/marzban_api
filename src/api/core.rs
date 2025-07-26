@@ -15,7 +15,7 @@ impl MarzbanAPIClient {
     pub async fn get_core_stats(&self) -> Result<CoreStats, ApiError> {
         let url = format!("{}/api/core", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -41,7 +41,7 @@ impl MarzbanAPIClient {
     pub async fn restart_core(&self) -> Result<String, ApiError> {
         let url = format!("{}/api/core", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
             .send()
             .await?;
@@ -64,7 +64,7 @@ impl MarzbanAPIClient {
     pub async fn get_core_config(&self) -> Result<String, ApiError> {
         let url = format!("{}/api/core/config", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -87,12 +87,15 @@ impl MarzbanAPIClient {
     /// `PUT /api/core/config`
     ///
     /// Modify the core configuration and restart the core.
-    pub async fn modify_core_config(&self, config_as_json: &str) -> Result<String, ApiError> {
+    pub async fn modify_core_config(
+        &self,
+        config_as_json: impl AsRef<str>,
+    ) -> Result<String, ApiError> {
         let url = format!("{}/api/core/config", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(config_as_json)
+            .json(config_as_json.as_ref())
             .send()
             .await?;
 

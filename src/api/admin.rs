@@ -25,13 +25,13 @@ impl MarzbanAPIClient {
     /// If you want to add the token to the client, use [MarzbanAPIClient::authenticate()] instead.
     pub async fn admin_token(
         &self,
-        auth: &BodyAdminTokenApiAdminTokenPost,
+        auth: impl AsRef<BodyAdminTokenApiAdminTokenPost>,
     ) -> Result<Token, ApiError> {
         let url = format!("{}/api/admin/token", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .form(&auth)
+            .form(auth.as_ref())
             .send()
             .await?;
 
@@ -61,7 +61,7 @@ impl MarzbanAPIClient {
     /// If you want to retrieve the token without storing it in the client, use [MarzbanAPIClient::admin_token()] instead.
     pub async fn authenticate(
         &self,
-        auth: &BodyAdminTokenApiAdminTokenPost,
+        auth: impl AsRef<BodyAdminTokenApiAdminTokenPost>,
     ) -> Result<(), ApiError> {
         let token = self.admin_token(auth).await?;
         let mut token_lock = self.inner.token.write().await;
@@ -75,7 +75,7 @@ impl MarzbanAPIClient {
     pub async fn get_current_admin(&self) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -98,12 +98,12 @@ impl MarzbanAPIClient {
     /// `POST /api/admin`
     ///
     /// Create a new admin if the current admin has sudo privileges.
-    pub async fn create_admin(&self, body: &AdminCreate) -> Result<Admin, ApiError> {
+    pub async fn create_admin(&self, body: impl AsRef<AdminCreate>) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(&body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -139,14 +139,18 @@ impl MarzbanAPIClient {
     /// Modify an existing admin's details.
     pub async fn modify_admin(
         &self,
-        admin_username: &str,
-        body: &AdminModify,
+        admin_username: impl AsRef<str>,
+        body: impl AsRef<AdminModify>,
     ) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin/{}", self.inner.base_url, admin_username);
+        let url = format!(
+            "{}/api/admin/{}",
+            self.inner.base_url,
+            admin_username.as_ref()
+        );
         let response = self
-            .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(&body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -178,10 +182,14 @@ impl MarzbanAPIClient {
     /// `DELETE /api/admin/{admin_username}`
     ///
     /// Remove an admin from the database.
-    pub async fn delete_admin(&self, admin_username: &str) -> Result<Admin, ApiError> {
-        let url = format!("{}/api/admin/{}", self.inner.base_url, admin_username);
+    pub async fn delete_admin(&self, admin_username: impl AsRef<str>) -> Result<Admin, ApiError> {
+        let url = format!(
+            "{}/api/admin/{}",
+            self.inner.base_url,
+            admin_username.as_ref()
+        );
         let response = self
-            .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .prepare_authorized_request(reqwest::Method::DELETE, url)
             .await
             .send()
             .await?;
@@ -222,9 +230,9 @@ impl MarzbanAPIClient {
     /// - `username` - The username of the admin.
     pub async fn get_admins(
         &self,
-        offset: Option<&i32>,
-        limit: Option<&i32>,
-        username: Option<&str>,
+        offset: Option<i32>,
+        limit: Option<i32>,
+        username: Option<impl Into<String>>,
     ) -> Result<Vec<Admin>, ApiError> {
         let url = format!("{}/api/admins/", self.inner.base_url);
         let mut params = Vec::new();
@@ -235,11 +243,11 @@ impl MarzbanAPIClient {
             params.push(("limit", value.to_string()))
         }
         if let Some(value) = username {
-            params.push(("username", value.to_string()))
+            params.push(("username", value.into()))
         }
 
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .query(&params)
             .send()

@@ -22,10 +22,10 @@ impl MarzbanAPIClient {
     ///
     /// For example, if the user agent is Clash, the response will be a Clash subscription link.
     /// If the user agent is a browser, the response will be a web page.
-    pub async fn user_subscription(&self, user_token: &str) -> Result<String, ApiError> {
-        let url = format!("{}/sub/{}", self.inner.base_url, user_token);
+    pub async fn user_subscription(&self, user_token: impl AsRef<str>) -> Result<String, ApiError> {
+        let url = format!("{}/sub/{}", self.inner.base_url, user_token.as_ref());
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -45,10 +45,13 @@ impl MarzbanAPIClient {
     /// `GET /sub/{user_token}/info`
     ///
     /// Retrieves detailed information about the user's subscription.
-    pub async fn user_subscription_info(&self, user_token: &str) -> Result<UserResponse, ApiError> {
-        let url = format!("{}/sub/{}/info", self.inner.base_url, user_token);
+    pub async fn user_subscription_info(
+        &self,
+        user_token: impl AsRef<str>,
+    ) -> Result<UserResponse, ApiError> {
+        let url = format!("{}/sub/{}/info", self.inner.base_url, user_token.as_ref());
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -78,21 +81,21 @@ impl MarzbanAPIClient {
     /// - `end` - The end date for the range.
     pub async fn user_get_usage(
         &self,
-        user_token: &str,
-        start: Option<&str>,
-        end: Option<&str>,
+        user_token: impl AsRef<str>,
+        start: Option<impl Into<String>>,
+        end: Option<impl Into<String>>,
     ) -> Result<UserUsagesResponse, ApiError> {
-        let url = format!("{}/sub/{}/usage", self.inner.base_url, user_token);
+        let url = format!("{}/sub/{}/usage", self.inner.base_url, user_token.as_ref());
         let mut params = Vec::new();
         if let Some(value) = start {
-            params.push(("start", value))
+            params.push(("start", value.into()))
         }
         if let Some(value) = end {
-            params.push(("end", value))
+            params.push(("end", value.into()))
         }
 
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .query(&params)
             .send()
@@ -118,12 +121,17 @@ impl MarzbanAPIClient {
     /// Provides a subscription link based on the specified client type (e.g., Clash, V2Ray).
     pub async fn user_subscription_with_client_type(
         &self,
-        user_token: &str,
-        client_type: &ClientTypes,
+        user_token: impl AsRef<str>,
+        client_type: impl AsRef<ClientTypes>,
     ) -> Result<String, ApiError> {
-        let url = format!("{}/sub/{}/{}", self.inner.base_url, user_token, client_type);
+        let url = format!(
+            "{}/sub/{}/{}",
+            self.inner.base_url,
+            user_token.as_ref(),
+            client_type.as_ref()
+        );
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;

@@ -35,7 +35,7 @@ impl MarzbanAPIClient {
         }
 
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .query(&params)
             .send()
@@ -66,13 +66,13 @@ impl MarzbanAPIClient {
     /// - **inbounds** dictionary of protocol:inbound_tags, empty means all inbounds
     pub async fn add_user_template(
         &self,
-        body: &UserTemplateCreate,
+        body: impl AsRef<UserTemplateCreate>,
     ) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -100,10 +100,10 @@ impl MarzbanAPIClient {
     /// `GET /api/user_template/{id}`
     ///
     /// Get User Template information with id
-    pub async fn get_user_template(&self, id: &i32) -> Result<UserTemplateResponse, ApiError> {
+    pub async fn get_user_template(&self, id: i32) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -134,14 +134,14 @@ impl MarzbanAPIClient {
     /// - **inbounds** dictionary of protocol:inbound_tags, empty means all inbounds
     pub async fn modify_user_template(
         &self,
-        id: &i32,
-        body: &UserTemplateModify,
+        id: i32,
+        body: impl AsRef<UserTemplateModify>,
     ) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -172,10 +172,10 @@ impl MarzbanAPIClient {
     /// `DELETE /api/user_template/{id}`
     ///
     /// Remove a User Template by its ID
-    pub async fn remove_user_template(&self, id: &i32) -> Result<String, ApiError> {
+    pub async fn remove_user_template(&self, id: i32) -> Result<String, ApiError> {
         let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .prepare_authorized_request(reqwest::Method::DELETE, url)
             .await
             .send()
             .await?;

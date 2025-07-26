@@ -18,7 +18,7 @@ impl MarzbanAPIClient {
     pub async fn get_node_settings(&self) -> Result<NodeSettings, ApiError> {
         let url = format!("{}/api/node/settings", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -38,12 +38,12 @@ impl MarzbanAPIClient {
     /// `POST /api/node`
     ///
     /// Add a new node to the database and optionally add it as a host.
-    pub async fn add_node(&self, body: &NodeCreate) -> Result<NodeResponse, ApiError> {
+    pub async fn add_node(&self, body: impl AsRef<NodeCreate>) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -68,10 +68,10 @@ impl MarzbanAPIClient {
     /// `GET /api/node/{node_id}`
     ///
     /// Retrieve details of a specific node by its ID.
-    pub async fn get_node(&self, node_id: &i32) -> Result<NodeResponse, ApiError> {
+    pub async fn get_node(&self, node_id: i32) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -100,14 +100,14 @@ impl MarzbanAPIClient {
     /// Update a node's details. Only accessible to sudo admins.
     pub async fn modify_node(
         &self,
-        node_id: &i32,
-        body: &NodeModify,
+        node_id: i32,
+        body: impl AsRef<NodeModify>,
     ) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::PUT, &url)
+            .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body)
+            .json(body.as_ref())
             .send()
             .await?;
 
@@ -133,10 +133,10 @@ impl MarzbanAPIClient {
     /// `DELETE /api/node/{node_id}`
     ///
     /// Delete a node and remove it from xray in the background.
-    pub async fn remove_node(&self, node_id: &i32) -> Result<String, ApiError> {
+    pub async fn remove_node(&self, node_id: i32) -> Result<String, ApiError> {
         let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .prepare_authorized_request(reqwest::Method::DELETE, url)
             .await
             .send()
             .await?;
@@ -163,7 +163,7 @@ impl MarzbanAPIClient {
     pub async fn get_nodes(&self) -> Result<Vec<NodeResponse>, ApiError> {
         let url = format!("{}/api/nodes", self.inner.base_url);
         let response = self
-            .prepare_authorized_request(reqwest::Method::GET, &url)
+            .prepare_authorized_request(reqwest::Method::GET, url)
             .await
             .send()
             .await?;
@@ -183,10 +183,10 @@ impl MarzbanAPIClient {
     /// `POST /api/node/{node_id}/reconnect`
     ///
     /// Trigger a reconnection for the specified node. Only accessible to sudo admins.
-    pub async fn reconnect_node(&self, node_id: &i32) -> Result<String, ApiError> {
+    pub async fn reconnect_node(&self, node_id: i32) -> Result<String, ApiError> {
         let url = format!("{}/api/node/{}/reconnect", self.inner.base_url, node_id);
         let response = self
-            .prepare_authorized_request(reqwest::Method::POST, &url)
+            .prepare_authorized_request(reqwest::Method::POST, url)
             .await
             .send()
             .await?;
@@ -217,20 +217,20 @@ impl MarzbanAPIClient {
     /// - `end` - The end date for the range.
     pub async fn get_nodes_usage(
         &self,
-        start: Option<&str>,
-        end: Option<&str>,
+        start: Option<impl Into<String>>,
+        end: Option<impl Into<String>>,
     ) -> Result<NodesUsageResponse, ApiError> {
         let url = format!("{}/api/nodes/usage", self.inner.base_url);
         let mut params = Vec::new();
         if let Some(value) = start {
-            params.push(("start", value))
+            params.push(("start", value.into()))
         }
         if let Some(value) = end {
-            params.push(("end", value))
+            params.push(("end", value.into()))
         }
 
         let response = self
-            .prepare_authorized_request(reqwest::Method::DELETE, &url)
+            .prepare_authorized_request(reqwest::Method::DELETE, url)
             .await
             .query(&params)
             .send()
