@@ -41,15 +41,12 @@ impl MarzbanAPIClient {
     /// - **note**: Optional text field for additional user information or notes.
     /// - **on_hold_timeout**: UTC timestamp when `on_hold` status should start or end.
     /// - **on_hold_expire_duration**: Duration (in seconds) for how long the user should stay in `on_hold` status.
-    pub async fn add_user(
-        &self,
-        new_user: impl AsRef<UserCreate>,
-    ) -> Result<UserResponse, ApiError> {
+    pub async fn add_user(&self, new_user: UserCreate) -> Result<UserResponse, ApiError> {
         let url = format!("{}/api/user", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(new_user.as_ref())
+            .json(&new_user)
             .send()
             .await?;
 
