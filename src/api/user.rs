@@ -61,8 +61,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -92,8 +91,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -141,8 +139,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -169,8 +166,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -203,8 +199,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -234,8 +229,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -265,8 +259,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -330,8 +323,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -416,8 +408,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -461,8 +452,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
@@ -505,8 +495,7 @@ impl MarzbanAPIClient {
             StatusCode::UNPROCESSABLE_ENTITY => {
                 let error_response = response.json::<HTTPValidationError>().await?;
                 Err(ApiError::ApiResponseError(format!(
-                    "Validation Error: {:?}",
-                    error_response
+                    "Validation Error: {error_response:?}"
                 )))
             }
             _ => Err(ApiError::UnexpectedResponse),
