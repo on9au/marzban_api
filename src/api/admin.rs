@@ -25,13 +25,13 @@ impl MarzbanAPIClient {
     /// If you want to add the token to the client, use [MarzbanAPIClient::authenticate()] instead.
     pub async fn admin_token(
         &self,
-        auth: impl AsRef<BodyAdminTokenApiAdminTokenPost>,
+        auth: BodyAdminTokenApiAdminTokenPost,
     ) -> Result<Token, ApiError> {
         let url = format!("{}/api/admin/token", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .form(auth.as_ref())
+            .form(&auth)
             .send()
             .await?;
 
@@ -61,7 +61,7 @@ impl MarzbanAPIClient {
     /// If you want to retrieve the token without storing it in the client, use [MarzbanAPIClient::admin_token()] instead.
     pub async fn authenticate(
         &self,
-        auth: impl AsRef<BodyAdminTokenApiAdminTokenPost>,
+        auth: BodyAdminTokenApiAdminTokenPost,
     ) -> Result<(), ApiError> {
         let token = self.admin_token(auth).await?;
         let mut token_lock = self.inner.token.write().await;
@@ -98,12 +98,12 @@ impl MarzbanAPIClient {
     /// `POST /api/admin`
     ///
     /// Create a new admin if the current admin has sudo privileges.
-    pub async fn create_admin(&self, body: impl AsRef<AdminCreate>) -> Result<Admin, ApiError> {
+    pub async fn create_admin(&self, body: AdminCreate) -> Result<Admin, ApiError> {
         let url = format!("{}/api/admin", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 
@@ -140,7 +140,7 @@ impl MarzbanAPIClient {
     pub async fn modify_admin(
         &self,
         admin_username: impl AsRef<str>,
-        body: impl AsRef<AdminModify>,
+        body: AdminModify,
     ) -> Result<Admin, ApiError> {
         let url = format!(
             "{}/api/admin/{}",
@@ -150,7 +150,7 @@ impl MarzbanAPIClient {
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 

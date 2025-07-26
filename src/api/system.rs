@@ -98,13 +98,13 @@ impl MarzbanAPIClient {
     /// Modify proxy hosts and update the configuration.
     pub async fn modify_hosts(
         &self,
-        body: impl AsRef<HashMap<String, Vec<ProxyHost>>>,
+        body: impl Into<HashMap<String, Vec<ProxyHost>>>,
     ) -> Result<HashMap<String, Vec<ProxyHost>>, ApiError> {
         let url = format!("{}/api/hosts", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body.as_ref())
+            .json(&body.into())
             .send()
             .await?;
 

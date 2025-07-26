@@ -120,13 +120,13 @@ impl MarzbanAPIClient {
     pub async fn modify_user(
         &self,
         username: impl AsRef<str>,
-        body: impl AsRef<UserModify>,
+        body: UserModify,
     ) -> Result<UserResponse, ApiError> {
         let url = format!("{}/api/user/{}", self.inner.base_url, username.as_ref());
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 
@@ -258,13 +258,13 @@ impl MarzbanAPIClient {
     /// Get all users
     pub async fn get_users(
         &self,
-        query_params: impl AsRef<GetUsersQueryParams>,
+        query_params: GetUsersQueryParams,
     ) -> Result<UsersResponse, ApiError> {
         let url = format!("{}/api/users", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, url)
             .await
-            .query(query_params.as_ref())
+            .query(&query_params)
             .send()
             .await?;
 

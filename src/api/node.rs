@@ -38,12 +38,12 @@ impl MarzbanAPIClient {
     /// `POST /api/node`
     ///
     /// Add a new node to the database and optionally add it as a host.
-    pub async fn add_node(&self, body: impl AsRef<NodeCreate>) -> Result<NodeResponse, ApiError> {
+    pub async fn add_node(&self, body: NodeCreate) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 
@@ -101,13 +101,13 @@ impl MarzbanAPIClient {
     pub async fn modify_node(
         &self,
         node_id: i32,
-        body: impl AsRef<NodeModify>,
+        body: NodeModify,
     ) -> Result<NodeResponse, ApiError> {
         let url = format!("{}/api/node/{}", self.inner.base_url, node_id);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 

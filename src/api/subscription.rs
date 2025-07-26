@@ -122,13 +122,13 @@ impl MarzbanAPIClient {
     pub async fn user_subscription_with_client_type(
         &self,
         user_token: impl AsRef<str>,
-        client_type: impl AsRef<ClientTypes>,
+        client_type: ClientTypes,
     ) -> Result<String, ApiError> {
         let url = format!(
             "{}/sub/{}/{}",
             self.inner.base_url,
             user_token.as_ref(),
-            client_type.as_ref()
+            client_type
         );
         let response = self
             .prepare_authorized_request(reqwest::Method::GET, url)

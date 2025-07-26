@@ -66,13 +66,13 @@ impl MarzbanAPIClient {
     /// - **inbounds** dictionary of protocol:inbound_tags, empty means all inbounds
     pub async fn add_user_template(
         &self,
-        body: impl AsRef<UserTemplateCreate>,
+        body: UserTemplateCreate,
     ) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template", self.inner.base_url);
         let response = self
             .prepare_authorized_request(reqwest::Method::POST, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 
@@ -135,13 +135,13 @@ impl MarzbanAPIClient {
     pub async fn modify_user_template(
         &self,
         id: i32,
-        body: impl AsRef<UserTemplateModify>,
+        body: UserTemplateModify,
     ) -> Result<UserTemplateResponse, ApiError> {
         let url = format!("{}/api/user_template/{}", self.inner.base_url, id);
         let response = self
             .prepare_authorized_request(reqwest::Method::PUT, url)
             .await
-            .json(body.as_ref())
+            .json(&body)
             .send()
             .await?;
 
